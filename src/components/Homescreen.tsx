@@ -11,6 +11,8 @@ import {
 } from '@gluestack-ui/themed';
 import feed from '../../utils/feed.json';
 import storyData from '../../utils/storyData.json';
+// @ts-ignore
+import {SliderBox} from 'react-native-image-slider-box';
 function Homescreen() {
   return (
     <>
@@ -113,18 +115,19 @@ function Homescreen() {
                           bottom={2}
                         />
                       </HStack>
-
-                      <ScrollView horizontal top={6}>
-                        {data.Images.map((image, i) => (
-                          <Image
-                            key={i}
-                            source={{uri: image.Url}}
-                            width={image.Width}
-                            height={image.Height}
-                            alt="Image"
-                          />
-                        ))}
-                      </ScrollView>
+                      <SliderBox
+                        images={data.Images.map(image => image.Url)}
+                        top={6}
+                        sliderBoxHeight={400}
+                        dotColor="#15ccf9"
+                        inactiveDotColor="grey"
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        dotStyle={{
+                          top: 32,
+                          height: 5,
+                          width: 5,
+                        }}
+                      />
                     </View>
                   </>
                   <HStack px={6} paddingTop={6} marginTop={10} gap={14}>
