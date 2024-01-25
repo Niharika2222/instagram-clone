@@ -22,7 +22,11 @@ function App(): React.JSX.Element {
       <GluestackUIProvider config={config}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Login" component={Loginscreen} />
+            <Stack.Screen
+              name="Login"
+              options={{headerShown: false}}
+              component={Loginscreen}
+            />
             <Stack.Screen name="Home" component={Homescreen} />
           </Stack.Navigator>
         </NavigationContainer>

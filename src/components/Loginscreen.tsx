@@ -22,15 +22,14 @@ export const Loginscreen = ({navigation}: any) => {
   return (
     <VStack
       px={24}
-      justifyContent="center"
       alignItems="center"
+      paddingVertical={'$24'}
       flex={1}
-      paddingBottom={72}
       backgroundColor="$white">
       <Image
         size="lg"
-        width={200}
-        marginBottom={'$8'}
+        width={240}
+        height={200}
         source={{
           uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
         }}
