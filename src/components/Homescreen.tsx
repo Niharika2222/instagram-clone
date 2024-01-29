@@ -15,6 +15,14 @@ import storyData from '../../utils/storyData.json';
 import {SliderBox} from 'react-native-image-slider-box';
 import {FlatList} from 'react-native';
 import {RefreshControl} from 'react-native';
+import {SvgXml} from 'react-native-svg';
+import {
+  commentIcon,
+  heartIcon,
+  messageIcon,
+  saveIcon,
+  sendIcon,
+} from '../../utils/svgConstant';
 let feed = [...feeds];
 function Homescreen() {
   const [visiblePost, setVisiblePost] = useState(2);
@@ -55,50 +63,37 @@ function Homescreen() {
 
   const renderHeader = () => (
     <View style={styles.container}>
-      <Image
-        size="xs"
-        width={150}
-        marginTop={5}
-        marginLeft={-12}
-        source={{
-          uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
-        }}
-        alt="Logo"
-      />
-      <Image
-        size="xs"
-        width={12}
-        height={12}
-        position="absolute"
-        top={18}
-        left={121}
-        source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MoCoHaAPT9kmJhBGb2pqu3E4gnbGP3w4Sw&usqp=CAU',
-        }}
-        alt="Arrow"
-      />
-
-      <Image
-        source={require('../../public/images/heart.png')}
-        width={24}
-        height={24}
-        position="absolute"
-        top={9}
-        right={60}
-        alt="heartIcon"
-      />
-      <Image
-        size="xs"
-        width={35}
-        height={55}
-        position="absolute"
-        top={-6}
-        right={5}
-        source={{
-          uri: 'https://st2.depositphotos.com/38069286/42112/v/450/depositphotos_421121214-stock-illustration-direct-messages-button-icon-isolated.jpg',
-        }}
-        alt="MessageIcon"
-      />
+      <HStack justifyContent="space-between" marginTop={5}>
+        <HStack>
+          <Image
+            size="xs"
+            width={150}
+            marginLeft={-12}
+            source={{
+              uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
+            }}
+            alt="Logo"
+          />
+          <Image
+            size="xs"
+            width={12}
+            height={12}
+            position="absolute"
+            top={12}
+            left={112}
+            source={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MoCoHaAPT9kmJhBGb2pqu3E4gnbGP3w4Sw&usqp=CAU',
+            }}
+            alt="Arrow"
+          />
+        </HStack>
+        <HStack gap={18} top={2}>
+          <SvgXml xml={heartIcon} width={24} height={24} />
+          <Box marginRight={10}>
+            <SvgXml xml={messageIcon} width={24} height={24} />
+          </Box>
+        </HStack>
+      </HStack>
     </View>
   );
   return (
@@ -124,7 +119,9 @@ function Homescreen() {
                         alt="UserImage"
                         rounded={'$full'}
                       />
-                      <Text left={16}>{item.Username}</Text>
+                      <Text left={16} style={{color: 'black'}}>
+                        {item.Username}
+                      </Text>
                       <Image
                         source={{
                           uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
@@ -145,51 +142,30 @@ function Homescreen() {
                       inactiveDotColor="grey"
                       // eslint-disable-next-line react-native/no-inline-styles
                       dotStyle={{
-                        top: 35,
+                        top: 36,
                         height: 6,
                         width: 6,
+                        marginHorizontal: -10,
                       }}
                     />
                   </View>
 
-                  <HStack px={6} paddingTop={6} marginTop={10} gap={14}>
-                    <Image
-                      source={require('../../public/images/heart.png')}
-                      width={20}
-                      height={20}
-                      alt="heartIcon"
-                    />
-                    <Image
-                      source={{
-                        uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq--fJ0Y1HzOEFf2mItD8eYx6QMqrk32A5V6DEmx5FCDkg9rXFDFm9C_Y74G8T3dtfe2A&usqp=CAU',
-                      }}
-                      width={20}
-                      height={20}
-                      alt="Icon"
-                    />
-                    <Image
-                      source={{
-                        uri: 'https://static.thenounproject.com/png/2796195-200.png',
-                      }}
-                      width={25}
-                      height={25}
-                      position="relative"
-                      bottom={2}
-                      alt="Icon"
-                    />
-                    <Image
-                      source={{
-                        uri: 'https://static.vecteezy.com/system/resources/thumbnails/012/528/048/small/simple-save-icon-isolated-on-white-background-bookmark-symbol-modern-simple-for-web-site-or-mobile-app-vector.jpg',
-                      }}
-                      width={28}
-                      height={28}
-                      position="absolute"
-                      right={8}
-                      bottom={2}
-                      alt="Icon"
-                    />
+                  <HStack
+                    px={7}
+                    paddingTop={5}
+                    marginTop={10}
+                    gap={14}
+                    justifyContent="space-between">
+                    <HStack gap={14} justifyContent="center">
+                      <SvgXml xml={heartIcon} width={24} height={24} />
+                      <SvgXml xml={commentIcon} width={24} height={24} />
+                      <SvgXml xml={sendIcon} width={24} height={24} />
+                    </HStack>
+                    <HStack>
+                      <SvgXml xml={saveIcon} width={24} height={24} />
+                    </HStack>
                   </HStack>
-                  <Box px={'$1.5'} marginBottom={2} marginTop={2}>
+                  <Box px={7} marginBottom={3} marginTop={4}>
                     <Text>
                       <Text style={styles.Username}>{item.Username}</Text>
                       <Text style={styles.Content}> {item.Caption}</Text>
@@ -241,6 +217,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     maxWidth: 320,
     flexWrap: 'wrap',
+    color: 'black',
   },
   Date: {
     marginLeft: 7,
@@ -250,7 +227,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: 'white',
-    marginBottom: 10,
   },
   name: {
     marginTop: 7,

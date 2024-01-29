@@ -14,6 +14,7 @@ import {NavigationContainer} from '@react-navigation/native';
 // import Homescreen from './src/components/home';
 import Loginscreen from './src/components/Loginscreen';
 import Homescreen from './src/components/Homescreen';
+import Tabs from './tabsNavigation/Tabs';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
@@ -27,7 +28,8 @@ function App(): React.JSX.Element {
               options={{headerShown: false}}
               component={Loginscreen}
             />
-            <Stack.Screen name="Home" component={Homescreen} />
+            <Stack.Screen name="Home" component={Tabs} />
+            {/* <Stack.Screen name="Tabs" component={Tabs} /> */}
           </Stack.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>
