@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {
   Image,
@@ -23,13 +23,16 @@ import {
   saveIcon,
   sendIcon,
 } from '../../utils/svgConstant';
-let feed = [...feeds];
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
+
 function Homescreen() {
   const [visiblePost, setVisiblePost] = useState(2);
   const [loadingMore, setLoadingMore] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [blogs, setBlogs] = useState<any[]>([]);
   const handleScroll = () => {
-    if (!loadingMore && visiblePost < feed.length) {
+    if (!loadingMore && visiblePost < blogs.length) {
       setLoadingMore(true);
       setTimeout(() => {
         setVisiblePost(prevCount => prevCount + 1);
@@ -44,22 +47,6 @@ function Homescreen() {
       <ActivityIndicator size="large" color="#808080" />
     </Box>
   );
-
-  const shuffleArray = (array: any[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    const newData = shuffleArray(feed);
-    setVisiblePost(2);
-    feed = newData;
-    setRefreshing(false);
-  }, []);
 
   const renderHeader = () => (
     <View style={styles.container}>
@@ -96,92 +83,142 @@ function Homescreen() {
       </HStack>
     </View>
   );
+
+  const retrievePostsFromStorage = async () => {
+    console.log(blogs);
+    console.log('checking blogss....');
+    try {
+      const storedPosts = await AsyncStorage.getItem('posts');
+      console.log(storedPosts, 'abcd');
+      let updatedBlogs: any[] = [];
+
+      if (storedPosts) {
+        const parsedPosts = JSON.parse(storedPosts);
+        // Update the global blogs variable or state with the retrieved posts
+        updatedBlogs = [...parsedPosts, ...feeds];
+        updatedBlogs.sort((a, b) => {
+          return (b.createdAt || 0) - (a.createdAt || 0);
+        });
+      } else {
+        // If there are no stored posts, update the state with external feeds only
+        updatedBlogs = [...feeds];
+        updatedBlogs.sort((a, b) => {
+          return (b.createdAt || 0) - (a.createdAt || 0);
+        });
+      }
+      setBlogs(updatedBlogs);
+      console.log({updatedBlogs});
+      console.log(blogs.length, 'feed');
+    } catch (error) {
+      console.error('Error retrieving posts from storage:', error);
+    }
+  };
+  useEffect(() => {
+    retrievePostsFromStorage();
+  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      retrievePostsFromStorage();
+      // Cleanup function
+      return () => {};
+    }, []),
+  );
   return (
     <>
       <>
         <View style={styles.container}>
           <FlatList
             ListHeaderComponent={renderHeader}
-            data={feed.slice(0, visiblePost)}
+            data={blogs.slice(0, visiblePost)}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item, index}) => (
-              <Box>
-                <Box py={5} position="relative">
-                  <View key={index}>
-                    <HStack alignItems="center">
-                      <Image
-                        source={{
-                          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
-                        }}
-                        width={30}
-                        height={30}
-                        left={10}
-                        alt="UserImage"
-                        rounded={'$full'}
-                      />
-                      <Text left={16} style={{color: 'black'}}>
-                        {item.Username}
-                      </Text>
-                      <Image
-                        source={{
-                          uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
-                        }}
-                        width={30}
-                        height={30}
-                        alt="Icon"
-                        position="absolute"
-                        right={6}
-                        bottom={2}
-                      />
-                    </HStack>
-                    <SliderBox
-                      images={item.Images.map(image => image.Url)}
-                      top={6}
-                      sliderBoxHeight={400}
-                      dotColor="#15ccf9"
-                      inactiveDotColor="grey"
-                      // eslint-disable-next-line react-native/no-inline-styles
-                      dotStyle={{
-                        top: 36,
-                        height: 6,
-                        width: 6,
-                        marginHorizontal: -10,
-                      }}
-                    />
-                  </View>
+            renderItem={({item, index}) => {
+              return (
+                <Box>
+                  <Box py={5} position="relative">
+                    <View key={index}>
+                      <HStack alignItems="center">
+                        <Image
+                          source={{
+                            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
+                          }}
+                          width={30}
+                          height={30}
+                          left={10}
+                          alt="UserImage"
+                          rounded={'$full'}
+                        />
+                        <Text left={16} style={{color: 'black'}}>
+                          {item.Username}
+                        </Text>
 
-                  <HStack
-                    px={7}
-                    paddingTop={5}
-                    marginTop={10}
-                    gap={14}
-                    justifyContent="space-between">
-                    <HStack gap={14} justifyContent="center">
-                      <SvgXml xml={heartIcon} width={24} height={24} />
-                      <SvgXml xml={commentIcon} width={24} height={24} />
-                      <SvgXml xml={sendIcon} width={24} height={24} />
+                        <Image
+                          source={{
+                            uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
+                          }}
+                          width={30}
+                          height={30}
+                          alt="Icon"
+                          position="absolute"
+                          right={6}
+                          bottom={2}
+                        />
+                      </HStack>
+                      <SliderBox
+                        images={
+                          item.Images
+                            ? item.Images.map((image: any) => image.Url)
+                            : []
+                        }
+                        top={6}
+                        sliderBoxHeight={400}
+                        dotColor="#15ccf9"
+                        inactiveDotColor="grey"
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        dotStyle={{
+                          top: 36,
+                          height: 6,
+                          width: 6,
+                          marginHorizontal: -10,
+                        }}
+                      />
+                    </View>
+
+                    <HStack
+                      px={7}
+                      paddingTop={5}
+                      marginTop={10}
+                      gap={14}
+                      justifyContent="space-between">
+                      <HStack gap={14} justifyContent="center">
+                        <SvgXml xml={heartIcon} width={24} height={24} />
+                        <SvgXml xml={commentIcon} width={24} height={24} />
+                        <SvgXml xml={sendIcon} width={24} height={24} />
+                      </HStack>
+                      <HStack>
+                        <SvgXml xml={saveIcon} width={24} height={24} />
+                      </HStack>
                     </HStack>
-                    <HStack>
-                      <SvgXml xml={saveIcon} width={24} height={24} />
+                    <Box px={7} marginBottom={3} marginTop={4}>
+                      <Text>
+                        <Text style={styles.Username}>{item.Username}</Text>
+                        <Text style={styles.Content}> {item.Caption}</Text>
+                      </Text>
+                    </Box>
+                    <HStack marginBottom={20}>
+                      <Text style={styles.Date}>{item.Date}</Text>
                     </HStack>
-                  </HStack>
-                  <Box px={7} marginBottom={3} marginTop={4}>
-                    <Text>
-                      <Text style={styles.Username}>{item.Username}</Text>
-                      <Text style={styles.Content}> {item.Caption}</Text>
-                    </Text>
                   </Box>
-                  <HStack marginBottom={20}>
-                    <Text style={styles.Date}>{item.Date}</Text>
-                  </HStack>
                 </Box>
-              </Box>
-            )}
+              );
+            }}
             onEndReached={handleScroll}
             onEndReachedThreshold={0.1}
             ListFooterComponent={loadingMore ? loader : null}
             refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={retrievePostsFromStorage}
+              />
             }
           />
         </View>
@@ -210,6 +247,7 @@ export default Homescreen;
 const styles = StyleSheet.create({
   Username: {
     fontWeight: 'bold',
+    color: 'black',
   },
   Content: {
     marginLeft: 8,

@@ -82,7 +82,7 @@ function Tabs() {
               <Image
                 alt="homeIcon"
                 source={{
-                  uri: 'https://www.shutterstock.com/shutterstock/photos/308471402/display_1500/stock-vector-profile-icon-female-avatar-woman-portrait-casual-person-silhouette-face-flat-design-vector-308471402.jpg',
+                  uri: 'https://img.lovepik.com/free-png/20210923/lovepik-cute-girl-avatar-png-image_401231841_wh1200.png',
                 }}
                 width={30}
                 borderRadius={50}
