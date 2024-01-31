@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useMemo, useRef} from 'react';
 import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {
   Image,
@@ -25,12 +25,15 @@ import {
 } from '../../utils/svgConstant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
+import {TouchableOpacity, Animated} from 'react-native';
+import BottomSheetComponent from './Bottomsheet';
 
 function Homescreen() {
   const [visiblePost, setVisiblePost] = useState(2);
   const [loadingMore, setLoadingMore] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
   const handleScroll = () => {
     if (!loadingMore && visiblePost < blogs.length) {
       setLoadingMore(true);
@@ -136,33 +139,41 @@ function Homescreen() {
                 <Box>
                   <Box py={5} position="relative">
                     <View key={index}>
-                      <HStack alignItems="center">
-                        <Image
-                          source={{
-                            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
-                          }}
-                          width={30}
-                          height={30}
-                          left={10}
-                          alt="UserImage"
-                          rounded={'$full'}
-                        />
-                        <Text left={16} style={{color: 'black'}}>
-                          {item.Username}
-                        </Text>
+                      <HStack
+                        alignItems="center"
+                        justifyContent="space-between">
+                        <HStack alignItems="center">
+                          <Image
+                            source={{
+                              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
+                            }}
+                            width={30}
+                            height={30}
+                            left={10}
+                            alt="UserImage"
+                            rounded={'$full'}
+                          />
+                          <Text left={16} style={{color: 'black'}}>
+                            {item.Username}
+                          </Text>
+                        </HStack>
 
-                        <Image
-                          source={{
-                            uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
-                          }}
-                          width={30}
-                          height={30}
-                          alt="Icon"
-                          position="absolute"
-                          right={6}
-                          bottom={2}
-                        />
+                        <HStack bottom={10}>
+                          <TouchableOpacity onPress={() => setIsVisible(true)}>
+                            <Image
+                              source={{
+                                uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
+                              }}
+                              width={30}
+                              height={30}
+                              alt="Icon"
+                              position="absolute"
+                              right={6}
+                            />
+                          </TouchableOpacity>
+                        </HStack>
                       </HStack>
+
                       <SliderBox
                         images={
                           item.Images
@@ -221,23 +232,12 @@ function Homescreen() {
               />
             }
           />
+          <BottomSheetComponent
+            setIsVisible={setIsVisible}
+            isVisible={isVisible}
+          />
         </View>
       </>
-      {/* <Box
-        position="sticky"
-        bottom={0}
-        left={0}
-        right={0}
-        height={75}
-        backgroundColor="#FFFFFF">
-        <HStack justifyContent="space-between" m="$4">
-          <Icon as={SearchIcon} w="$7" h="$7" />
-          <Icon as={SearchIcon} w="$7" h="$7" />
-          <Icon as={SearchIcon} w="$7" h="$7" />
-          <Icon as={SearchIcon} w="$7" h="$7" />
-          <Icon as={SearchIcon} w="$7" h="$7" />
-        </HStack>
-      </Box> */}
     </>
   );
 }
