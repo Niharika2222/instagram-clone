@@ -18,15 +18,141 @@
         "Height": 400
       }
     ],
-    "Username": "John",
+    "Username": "Taisha",
     "Date": "23 january",
     "createdAt": 1706616877680,
+    "id": 2,
     "Caption": "Chasing sunsets and good vibes. 🌅🍃"
   },
   {
     "Title": "Feed 2",
     "Images": [
       {
+        "Url": "https://indianwomennetwork.com/wp-content/uploads/2022/02/slider-women-final-1.png",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://wallpaperaccess.com/full/24498.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://e1.pxfuel.com/desktop-wallpaper/1010/907/desktop-wallpaper-women-graphy-and-mobile-backgrounds-women-graphy.jpg",
+        "Width": 600,
+        "Height": 400
+      }
+    ],
+    "Username": "Meera",
+    "Date": "23 january",
+    "createdAt": 1706616877680,
+    "id": 3,
+    "Caption": "Sometimes God takes you out of situations to protect you."
+  },
+  {
+    "Title": "Feed 2",
+    "Images": [
+      {
+        "Url": "https://images.unsplash.com/photo-1610088441520-4352457e7095?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbnxlbnwwfHwwfHx8MA%3D%3D",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8yX3Bob3RvX29mX2FfYmxhY2tfYnVzaW5lc3NtYW5faXNvbGF0ZWRfb25fb2ZmX19lZmMxZDllNC1iNzQ5LTQ2NzMtYjRmMS1lYjI0NTBiYzNiOGRfMS5qcGc.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://media.istockphoto.com/id/1203732956/photo/portrait-of-cheerful-african-businessman-in-early-30s.jpg?s=612x612&w=0&k=20&c=hBZa4GISX2p1t7CDYzNfsUz95f9FrlmXcrq5gU1mFJg=",
+        "Width": 600,
+        "Height": 400
+      }
+    ],
+    "Username": "John",
+    "Date": "23 january",
+    "createdAt": 1706616877680,
+    "id": 4,
+    "Caption": "Sometimes God takes you out of situations to protect you."
+  },
+  {
+    "Title": "Feed 2",
+    "Images": [
+      {
+        "Url": "https://media.istockphoto.com/id/1313502972/photo/portrait-of-beautiful-woman-having-fun.jpg?s=612x612&w=0&k=20&c=DHGWp3wIoSlpjK9xFdARpgpyo4t-hIzuqOSx5ZyRsHA=",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://wallpaperaccess.com/full/24498.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://e1.pxfuel.com/desktop-wallpaper/1010/907/desktop-wallpaper-women-graphy-and-mobile-backgrounds-women-graphy.jpg",
+        "Width": 600,
+        "Height": 400
+      }
+    ],
+    "Username": "Mahira",
+    "Date": "23 january",
+    "createdAt": 1706616877680,
+    "id": 5,
+    "Caption": "Sometimes God takes you out of situations to protect you."
+  },
+  {
+    "Title": "Feed 2",
+    "Images": [
+      {
+        "Url": "https://img.freepik.com/free-photo/stylish-handsome-indian-man-tshirt-pastel-wall_496169-1571.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Outdoors-man-portrait_%28cropped%29.jpg/800px-Outdoors-man-portrait_%28cropped%29.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://media.istockphoto.com/id/636580218/photo/young-man-wearing-blue-jeans-jacket-on-white-background.jpg?s=612x612&w=0&k=20&c=WfNYmbhDEUZINGTn-HE1F3UOZJ6oMo0BmL8-IZukFkM=",
+        "Width": 600,
+        "Height": 400
+      }
+    ],
+    "Username": "Akshay",
+    "Date": "23 january",
+    "createdAt": 1706616877680,
+    "id": 6,
+    "Caption": "Sometimes God takes you out of situations to protect you."
+  },
+  {
+    "Title": "Feed 2",
+    "Images": [
+      {
+        "Url": "https://media.istockphoto.com/id/1319763895/photo/smiling-mixed-race-mature-man-on-grey-background.jpg?s=612x612&w=0&k=20&c=ZiuzNX9LhTMMcRFrYNfq_zFR7O_aH-q7x1L5elko5uU=",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://img.freepik.com/free-photo/black-businessman-happy-expression_1194-2539.jpg",
+        "Width": 600,
+        "Height": 400
+      },
+      {
+        "Url": "https://t4.ftcdn.net/jpg/03/26/98/51/360_F_326985142_1aaKcEjMQW6ULp6oI9MYuv8lN9f8sFmj.jpg",
+        "Width": 600,
+        "Height": 400
+      }
+    ],
+    "Username": "Imran",
+    "Date": "23 january",
+    "createdAt": 1706616877680,
+    "Caption": "Sometimes God takes you out of situations to protect you.",
+    "id": 7
+  },
+  {
+    "Title": "Feed 2",
+    "Images": [
+      {
         "Url": "https://e0.pxfuel.com/wallpapers/495/102/desktop-wallpaper-cute-smile-background-of-your-background-thumbnail.jpg",
         "Width": 600,
         "Height": 400
@@ -45,6 +171,7 @@
     "Username": "John",
     "Date": "23 january",
     "createdAt": 1706616877680,
+    "id": 8,
     "Caption": "Sometimes God takes you out of situations to protect you."
   },
   {
@@ -69,6 +196,7 @@
     "Username": "John",
     "Date": "23 january",
     "createdAt": 1706616877680,
+    "id": 9,
     "Caption": "Sometimes God takes you out of situations to protect you."
   },
   {
@@ -93,6 +221,7 @@
     "Username": "John",
     "Date": "23 january",
     "createdAt": 1706616877680,
+    "id": 10,
     "Caption": "Sometimes God takes you out of situations to protect you."
   },
   {
@@ -114,7 +243,8 @@
         "Height": 400
       }
     ],
-    "Username": "John",
+    "Username": "Niharika",
+    "id": 11,
     "Date": "23 january",
     "createdAt": 1706616877680,
     "Caption": "Sometimes God takes you out of situations to protect you."
@@ -138,79 +268,8 @@
         "Height": 400
       }
     ],
-    "Username": "John",
-    "Date": "23 january",
-    "createdAt": 1706616877680,
-    "Caption": "Sometimes God takes you out of situations to protect you."
-  },
-  {
-    "Title": "Feed 2",
-    "Images": [
-      {
-        "Url": "https://e0.pxfuel.com/wallpapers/495/102/desktop-wallpaper-cute-smile-background-of-your-background-thumbnail.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://wallpaperaccess.com/full/24498.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://e1.pxfuel.com/desktop-wallpaper/1010/907/desktop-wallpaper-women-graphy-and-mobile-backgrounds-women-graphy.jpg",
-        "Width": 600,
-        "Height": 400
-      }
-    ],
-    "Username": "John",
-    "Date": "23 january",
-    "createdAt": 1706616877680,
-    "Caption": "Sometimes God takes you out of situations to protect you."
-  },
-  {
-    "Title": "Feed 2",
-    "Images": [
-      {
-        "Url": "https://e0.pxfuel.com/wallpapers/495/102/desktop-wallpaper-cute-smile-background-of-your-background-thumbnail.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://wallpaperaccess.com/full/24498.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://e1.pxfuel.com/desktop-wallpaper/1010/907/desktop-wallpaper-women-graphy-and-mobile-backgrounds-women-graphy.jpg",
-        "Width": 600,
-        "Height": 400
-      }
-    ],
-    "Username": "John",
-    "Date": "23 january",
-    "createdAt": 1706616877680,
-    "Caption": "Sometimes God takes you out of situations to protect you."
-  },
-  {
-    "Title": "Feed 2",
-    "Images": [
-      {
-        "Url": "https://e0.pxfuel.com/wallpapers/495/102/desktop-wallpaper-cute-smile-background-of-your-background-thumbnail.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://wallpaperaccess.com/full/24498.jpg",
-        "Width": 600,
-        "Height": 400
-      },
-      {
-        "Url": "https://e1.pxfuel.com/desktop-wallpaper/1010/907/desktop-wallpaper-women-graphy-and-mobile-backgrounds-women-graphy.jpg",
-        "Width": 600,
-        "Height": 400
-      }
-    ],
-    "Username": "John",
+    "Username": "Niharika",
+    "id": 12,
     "Date": "23 january",
     "createdAt": 1706616877680,
     "Caption": "Sometimes God takes you out of situations to protect you."

@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import {TouchableOpacity, Animated} from 'react-native';
 import BottomSheetComponent from './Bottomsheet';
+import Stories from './Stories';
 
 function Homescreen() {
   const [visiblePost, setVisiblePost] = useState(2);
@@ -52,39 +53,42 @@ function Homescreen() {
   );
 
   const renderHeader = () => (
-    <View style={styles.container}>
-      <HStack justifyContent="space-between" marginTop={5}>
-        <HStack>
-          <Image
-            size="xs"
-            width={150}
-            marginLeft={-12}
-            source={{
-              uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
-            }}
-            alt="Logo"
-          />
-          <Image
-            size="xs"
-            width={12}
-            height={12}
-            position="absolute"
-            top={12}
-            left={112}
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MoCoHaAPT9kmJhBGb2pqu3E4gnbGP3w4Sw&usqp=CAU',
-            }}
-            alt="Arrow"
-          />
+    <>
+      <View style={styles.container}>
+        <HStack justifyContent="space-between" marginTop={5}>
+          <HStack>
+            <Image
+              size="xs"
+              width={150}
+              marginLeft={-12}
+              source={{
+                uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
+              }}
+              alt="Logo"
+            />
+            <Image
+              size="xs"
+              width={12}
+              height={12}
+              position="absolute"
+              top={12}
+              left={112}
+              source={{
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MoCoHaAPT9kmJhBGb2pqu3E4gnbGP3w4Sw&usqp=CAU',
+              }}
+              alt="Arrow"
+            />
+          </HStack>
+          <HStack gap={18} top={2}>
+            <SvgXml xml={heartIcon} width={24} height={24} />
+            <Box marginRight={10}>
+              <SvgXml xml={messageIcon} width={24} height={24} />
+            </Box>
+          </HStack>
         </HStack>
-        <HStack gap={18} top={2}>
-          <SvgXml xml={heartIcon} width={24} height={24} />
-          <Box marginRight={10}>
-            <SvgXml xml={messageIcon} width={24} height={24} />
-          </Box>
-        </HStack>
-      </HStack>
-    </View>
+      </View>
+      <Stories />
+    </>
   );
 
   const retrievePostsFromStorage = async () => {

@@ -16,6 +16,7 @@ import Loginscreen from './src/components/Loginscreen';
 import Homescreen from './src/components/Homescreen';
 import Tabs from './tabsNavigation/Tabs';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Profiledetail from './src/components/Profiledetail';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
@@ -31,6 +32,7 @@ function App(): React.JSX.Element {
             />
             <Stack.Screen name="Home" component={Tabs} />
             {/* <Stack.Screen name="Tabs" component={Tabs} /> */}
+            <Stack.Screen name="Posts" component={Profiledetail} />
           </Stack.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>

@@ -41,42 +41,38 @@ const Addpostscreen = () => {
       }
     }
   };
-  //   const handleSubmit = async () => {
-  //     const params = {title, body, image};
-  //     try {
-  //       await AsyncStorage.setItem('postParams', JSON.stringify(params));
-  //       console.log('Params stored successfully:', params);
-  //     } catch (e) {
-  //       console.error('Error storing params:', e);
-  //     }
-  //   };
 
   const handleSubmit = async () => {
     try {
       const newPost = {
         Title: title,
-        Images: [{Url: image, Width: 600, Height: 400}], // Assuming only one image for simplicity
-        Username: 'YourUsername', // You can replace this with the actual username
-        Date: new Date().toLocaleDateString(), // Use the current date
+        Images: [{Url: image, Width: 600, Height: 400}],
+        Username: 'Niharika',
+        Date: new Date().toLocaleDateString(),
         Caption: body,
         createdAt: Date.now(),
+        id: generateUniqueId(),
       };
-
-      // Retrieve existing posts from local storage
+      function generateUniqueId() {
+        return (
+          Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
+        );
+      }
 
       const existingPostsStr = await AsyncStorage.getItem('posts');
+
       const existingPosts = existingPostsStr
         ? JSON.parse(existingPostsStr)
         : [];
 
-      // Add the new post to the existing posts array
       const updatedPosts = [newPost, ...existingPosts];
+
       console.log({existing: existingPosts});
-      // Save the updated posts back to local storage
+
       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
 
-      // Navigate back to the home screen
       navigation.goBack();
+
       setTitle('');
       setBody('');
       setImage('');

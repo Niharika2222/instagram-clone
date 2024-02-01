@@ -1,31 +1,66 @@
 [
-    {
-      "name": "Feed 1",
-      "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
-    },
-    {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
+  {
+    "user_id": 1,
+    "user_image": "https://wallpaperaccess.com/full/24498.jpg",
+    "user_name": "Ahmet Çağlar Durmuş",
+    "stories": [
+      {
+        "story_id": 1,
+        "story_image": "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+        "swipeText": "Custom swipe text for this story"
       },
       {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
-      },
-      {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
-      },
-      {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
-      },
-      {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
-      },
-      {
-        "name": "Feed 1",
-        "profilePicture":"https://wallpaperaccess.com/full/24498.jpg"
+        "story_id": 2,
+        "story_image": "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg"
       }
-  ]
-  
+    ]
+  },
+  {
+    "user_id": 1,
+    "user_image": "https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg",
+    "user_name": "Ahmet Çağlar Durmuş",
+    "stories": [
+      {
+        "story_id": 1,
+        "story_image": "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+        "swipeText": "Custom swipe text for this story"
+      },
+      {
+        "story_id": 2,
+        "story_image": "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg"
+      }
+    ]
+  },
+  {
+    "user_id": 1,
+    "user_image": "https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg",
+    "user_name": "Ahmet Çağlar Durmuş",
+    "stories": [
+      {
+        "story_id": 1,
+        "story_image": "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+        "swipeText": "Custom swipe text for this story"
+      },
+      {
+        "story_id": 2,
+        "story_image": "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg"
+      }
+    ]
+  },
+  {
+    "user_id": 1,
+    "user_image": "https://pbs.twimg.com/profile_images/1222140802475773952/61OmyINj.jpg",
+    "user_name": "Ahmet Çağlar Durmuş",
+    "stories": [
+      {
+        "story_id": 1,
+        "story_image": "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+        "swipeText": "Custom swipe text for this story"
+      },
+      {
+        "story_id": 2,
+        "story_image": "https://image.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_79603-601.jpg"
+      }
+    ]
+  }
+]

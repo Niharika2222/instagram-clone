@@ -8,11 +8,16 @@ import {
   Text,
   VStack,
 } from '@gluestack-ui/themed';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import myPosts from '../../utils/profile.json';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import feeds from '../../utils/feed.json';
 
 const MyProfile = () => {
+  const navigation = useNavigation();
+  const [profile, setProfile] = useState<any[]>([]);
   const renderHeaderContent = () => {
     return (
       <View style={styles.container}>
@@ -96,19 +101,63 @@ const MyProfile = () => {
     );
   };
 
-  const renderPostItem = ({item}: any) => {
+  const renderPostItem = ({item, index}: any) => {
+    const handlePostPress = (item: any, index: any) => {
+      navigation.navigate('Posts', {post: item, index, posts: profile});
+    };
     return (
-      <Image
-        alt="posted pic"
-        source={{uri: item.postedPic}}
-        style={styles.postImage}
-      />
+      <TouchableOpacity onPress={() => handlePostPress(item, index)}>
+        <Image
+          alt="posted pic"
+          source={{uri: item.Images[0].Url}} // Adjust the key based on your data structure
+          style={styles.postImage}
+        />
+      </TouchableOpacity>
     );
   };
 
+  useEffect(() => {
+    const niharikaPosts = feeds.filter(post => post.Username === 'Niharika');
+    setProfile(niharikaPosts);
+  }, []);
+
+  const retrievePostsFromStorage = async () => {
+    try {
+      const storedPosts = await AsyncStorage.getItem('posts');
+      let updatedPosts: any[] = [];
+
+      if (storedPosts) {
+        const parsedPosts = JSON.parse(storedPosts);
+        updatedPosts = [
+          ...parsedPosts,
+          ...feeds.filter(post => post.Username === 'Niharika'),
+        ];
+        updatedPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      } else {
+        updatedPosts = [...feeds.filter(post => post.Username === 'Niharika')];
+        updatedPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      }
+
+      setProfile(updatedPosts);
+    } catch (error) {
+      console.error('Error retrieving posts from storage:', error);
+    }
+  };
+
+  useEffect(() => {
+    retrievePostsFromStorage();
+  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      retrievePostsFromStorage();
+      // Cleanup function
+      return () => {};
+    }, []),
+  );
+
   return (
     <FlatList
-      data={myPosts}
+      data={profile}
       renderItem={renderPostItem}
       ListHeaderComponent={renderHeaderContent}
       keyExtractor={(item, index) => index.toString()}
