@@ -27,11 +27,10 @@ const BottomSheetComponent: React.FunctionComponent<
       title: 'Report',
 
       titleStyle: {color: 'red'},
-      onPress: () => handleEdit,
     },
   ];
   const ProfileList = [
-    {title: 'Edit'},
+    {title: 'Edit', onPress: handleEdit},
     {
       title: 'Delete',
 

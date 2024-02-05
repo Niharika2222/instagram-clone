@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from '@gluestack-ui/themed';
 import {
   Button,
@@ -11,7 +11,7 @@ import {
 import DocumentPicker from 'react-native-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-const Addpostscreen = () => {
+const Addpostscreen = ({route}: any) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState<string | null>(null);
@@ -19,6 +19,7 @@ const Addpostscreen = () => {
   const [titleError, setTitleError] = useState<string>('');
   const [bodyError, setBodyError] = useState<string>('');
   const [imageError, setImageError] = useState<string>('');
+  const {postToEdit, onEditSuccess} = route.params || {};
   const navigation = useNavigation();
   const handleTitleChange = (text: string) => {
     setTitle(text);
@@ -68,31 +69,50 @@ const Addpostscreen = () => {
         return;
       }
 
-      const newPost = {
-        Title: title,
-        Images: [{Url: image, Width: 600, Height: 400}],
-        Username: 'Niharika',
-        Date: new Date().toLocaleDateString(),
-        Caption: body,
-        createdAt: Date.now(),
-        id: generateUniqueId(),
-      };
-      function generateUniqueId() {
-        return (
-          Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
-        );
-      }
-
       const existingPostsStr = await AsyncStorage.getItem('posts');
 
       const existingPosts = existingPostsStr
         ? JSON.parse(existingPostsStr)
         : [];
 
-      const updatedPosts = [newPost, ...existingPosts];
+      if (postToEdit) {
+        const editedPost = {
+          ...postToEdit,
+          Title: title,
+          Caption: body,
+          Images: [{Url: image, Width: 600, Height: 400}],
+        };
+        const updatedPosts = existingPosts.map((post: any) =>
+          post.id === postToEdit.id ? editedPost : post,
+        );
+        await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+        onEditSuccess();
+      } else {
+        const newPost = {
+          Title: title,
+          Images: [{Url: image, Width: 600, Height: 400}],
+          Username: 'Niharika',
+          Date: new Date().toLocaleDateString(),
+          Caption: body,
+          createdAt: Date.now(),
+          id: generateUniqueId(),
+        };
+        function generateUniqueId() {
+          return (
+            Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
+          );
+        }
 
-      await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+        const existingPostsStr = await AsyncStorage.getItem('posts');
 
+        const existingPosts = existingPostsStr
+          ? JSON.parse(existingPostsStr)
+          : [];
+
+        const updatedPosts = [newPost, ...existingPosts];
+
+        await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+      }
       navigation.goBack();
 
       setTitle('');
@@ -102,6 +122,15 @@ const Addpostscreen = () => {
       console.error('Error adding post:', error);
     }
   };
+
+  useEffect(() => {
+    if (postToEdit) {
+      // Populate fields with existing post details for editing
+      setTitle(postToEdit.Title || '');
+      setBody(postToEdit.Caption || '');
+      setImage(postToEdit.Images[0]?.Url || null);
+    }
+  }, [postToEdit]);
 
   return (
     <View style={styles.container}>

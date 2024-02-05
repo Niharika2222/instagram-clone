@@ -24,8 +24,16 @@ const Profiledetail = ({route}: any) => {
   const {index} = route.params;
   const navigation = useNavigation();
 
-  const handleEdit = () => {
-    console.log('edit');
+  const handleEdit = (postId: number) => {
+    console.log('abcd');
+    const postToEdit = profile.find(post => post.id === postId);
+    console.log({postToEdit});
+    if (postToEdit) {
+      navigation.navigate('AddPost', {
+        postToEdit,
+        onEditSuccess: retrieveProfileFromStorage,
+      });
+    }
   };
 
   const handleDelete = async (postId: number) => {
@@ -165,7 +173,7 @@ const Profiledetail = ({route}: any) => {
         isVisible={isVisible}
         fromProfileDetailScreen={true}
         handleDelete={() => handleDelete(profile[index]?.id)}
-        handleEdit={() => handleEdit()}
+        handleEdit={() => handleEdit(profile[index]?.id)}
       />
     </>
   );
