@@ -16,16 +16,22 @@ const Addpostscreen = () => {
   const [body, setBody] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [titleError, setTitleError] = useState<string>('');
+  const [bodyError, setBodyError] = useState<string>('');
+  const [imageError, setImageError] = useState<string>('');
   const navigation = useNavigation();
   const handleTitleChange = (text: string) => {
     setTitle(text);
+    setTitleError('');
   };
 
   const handleBodyChange = (text: string) => {
     setBody(text);
+    setBodyError('');
   };
   const handleImageChange = async () => {
     try {
+      setImageError('');
       const res: any = await DocumentPicker.pick({
         presentationStyle: 'fullScreen',
       });
@@ -43,6 +49,25 @@ const Addpostscreen = () => {
 
   const handleSubmit = async () => {
     try {
+      if (!title.trim()) {
+        setTitleError('Title cannot be empty');
+      } else {
+        setTitleError('');
+      }
+      if (!body.trim()) {
+        setBodyError('Body cannot be empty');
+      } else {
+        setBodyError('');
+      }
+      if (!image) {
+        setImageError('Please choose an image');
+      } else {
+        setImageError('');
+      }
+      if (!title.trim() || !body.trim() || !image) {
+        return;
+      }
+
       const newPost = {
         Title: title,
         Images: [{Url: image, Width: 600, Height: 400}],
@@ -90,6 +115,7 @@ const Addpostscreen = () => {
           style={styles.input}
           placeholderTextColor="gray"
         />
+        {titleError ? <Text style={styles.errorText}>{titleError}</Text> : null}
 
         <TextInput
           placeholder="Body"
@@ -99,6 +125,7 @@ const Addpostscreen = () => {
           style={styles.bodyInput}
           placeholderTextColor="gray"
         />
+        {bodyError ? <Text style={styles.errorText}>{bodyError}</Text> : null}
 
         <View style={styles.inputContainer}>
           <TouchableOpacity
@@ -106,6 +133,9 @@ const Addpostscreen = () => {
             onPress={handleImageChange}>
             <Text style={styles.imageUploadText}>Choose Image</Text>
           </TouchableOpacity>
+          {imageError ? (
+            <Text style={styles.imageText}>{imageError}</Text>
+          ) : null}
         </View>
         {image && (
           <View style={styles.imagePreviewContainer}>
@@ -189,6 +219,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     color: '#ffffff',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    bottom: 16,
+  },
+  imageText: {
+    color: 'red',
+    fontSize: 12,
   },
 });
 

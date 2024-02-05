@@ -149,7 +149,6 @@ const MyProfile = () => {
   useFocusEffect(
     React.useCallback(() => {
       retrievePostsFromStorage();
-      // Cleanup function
       return () => {};
     }, []),
   );

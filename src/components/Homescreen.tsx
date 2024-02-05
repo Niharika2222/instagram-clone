@@ -216,7 +216,7 @@ function Homescreen() {
                             ? item.Images.map((image: any) => image.Url)
                             : []
                         }
-                        top={6}
+                        top={5}
                         sliderBoxHeight={400}
                         dotColor="#15ccf9"
                         inactiveDotColor="grey"

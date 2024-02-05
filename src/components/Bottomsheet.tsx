@@ -8,11 +8,18 @@ type BottomSheetComponentProps = {
   isVisible: boolean;
   fromProfileDetailScreen?: boolean;
   handleDelete?: () => void;
+  handleEdit?: () => void;
 };
 
 const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
-> = ({setIsVisible, isVisible, fromProfileDetailScreen, handleDelete}) => {
+> = ({
+  setIsVisible,
+  isVisible,
+  fromProfileDetailScreen,
+  handleDelete,
+  handleEdit,
+}) => {
   const list = [
     {title: 'Add to favorites'},
     {title: 'About this account'},
@@ -20,7 +27,7 @@ const BottomSheetComponent: React.FunctionComponent<
       title: 'Report',
 
       titleStyle: {color: 'red'},
-      onPress: () => setIsVisible(false),
+      onPress: () => handleEdit,
     },
   ];
   const ProfileList = [

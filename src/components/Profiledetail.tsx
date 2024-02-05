@@ -23,6 +23,11 @@ const Profiledetail = ({route}: any) => {
   const [isVisible, setIsVisible] = useState(false);
   const {index} = route.params;
   const navigation = useNavigation();
+
+  const handleEdit = () => {
+    console.log('edit');
+  };
+
   const handleDelete = async (postId: number) => {
     try {
       const storedPosts = await AsyncStorage.getItem('posts');
@@ -33,12 +38,11 @@ const Profiledetail = ({route}: any) => {
         updatedPosts = parsedPosts.filter((post: any) => post.id !== postId);
         await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
         setProfile(updatedPosts);
-        navigation.navigate('Home');
+        navigation.goBack();
       }
     } catch (error) {
       console.error('Error deleting post from storage:', error);
     } finally {
-      // Close the bottom sheet
       setIsVisible(false);
     }
   };
@@ -161,6 +165,7 @@ const Profiledetail = ({route}: any) => {
         isVisible={isVisible}
         fromProfileDetailScreen={true}
         handleDelete={() => handleDelete(profile[index]?.id)}
+        handleEdit={() => handleEdit()}
       />
     </>
   );
