@@ -16,25 +16,26 @@ import myPosts from '../../utils/profile.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import feeds from '../../utils/feed.json';
 import BottomSheetComponent from './Bottomsheet';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const Profiledetail = ({route}: any) => {
   const [profile, setProfile] = useState<any[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [profileData, setProfileData] = useState();
   const {index} = route.params;
   const navigation = useNavigation();
 
-  const handleEdit = (postId: number) => {
-    console.log('abcd');
-    const postToEdit = profile.find(post => post.id === postId);
-    console.log({postToEdit});
-    if (postToEdit) {
-      navigation.navigate('AddPost', {
-        postToEdit,
-        onEditSuccess: retrieveProfileFromStorage,
-      });
-    }
-  };
+  //   const handleEdit = (postId: number) => {
+  //     console.log('abcd');
+  //     const postToEdit = profile.find(post => post.id === postId);
+  //     console.log({postToEdit});
+  //     if (postToEdit) {
+  //       navigation.navigate('AddPost', {
+  //         postToEdit,
+  //         onEditSuccess: retrieveProfileFromStorage,
+  //       });
+  //     }
+  //   };
 
   const handleDelete = async (postId: number) => {
     try {
@@ -107,7 +108,11 @@ const Profiledetail = ({route}: any) => {
                     </HStack>
 
                     <HStack bottom={10}>
-                      <TouchableOpacity onPress={() => setIsVisible(true)}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setIsVisible(true);
+                          setProfileData(item);
+                        }}>
                         <Image
                           source={{
                             uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
@@ -173,7 +178,7 @@ const Profiledetail = ({route}: any) => {
         isVisible={isVisible}
         fromProfileDetailScreen={true}
         handleDelete={() => handleDelete(profile[index]?.id)}
-        handleEdit={() => handleEdit(profile[index]?.id)}
+        post={profileData}
       />
     </>
   );

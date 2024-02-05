@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-const Addpostscreen = ({route}: any) => {
+import {useNavigation, useRoute} from '@react-navigation/native';
+const Addpostscreen = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState<string | null>(null);
@@ -19,8 +19,11 @@ const Addpostscreen = ({route}: any) => {
   const [titleError, setTitleError] = useState<string>('');
   const [bodyError, setBodyError] = useState<string>('');
   const [imageError, setImageError] = useState<string>('');
-  const {postToEdit, onEditSuccess} = route.params || {};
+  const [postId, setPostId] = useState('');
+  // const {postToEdit, onEditSuccess} = route?.params || {};
   const navigation = useNavigation();
+  const route = useRoute();
+
   const handleTitleChange = (text: string) => {
     setTitle(text);
     setTitleError('');
@@ -47,6 +50,82 @@ const Addpostscreen = ({route}: any) => {
       }
     }
   };
+  function generateUniqueId(existingId?: string) {
+    return (
+      existingId ||
+      Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
+    );
+  }
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     if (!title.trim()) {
+  //       setTitleError('Title cannot be empty');
+  //     } else {
+  //       setTitleError('');
+  //     }
+  //     if (!body.trim()) {
+  //       setBodyError('Body cannot be empty');
+  //     } else {
+  //       setBodyError('');
+  //     }
+  //     if (!image) {
+  //       setImageError('Please choose an image');
+  //     } else {
+  //       setImageError('');
+  //     }
+  //     if (!title.trim() || !body.trim() || !image) {
+  //       return;
+  //     }
+
+  //     const existingPostsStr = await AsyncStorage.getItem('posts');
+
+  //     const existingPosts = existingPostsStr
+  //       ? JSON.parse(existingPostsStr)
+  //       : [];
+
+  //     if (postToEdit) {
+  //       const editedPost = {
+  //         ...postToEdit,
+  //         Title: title,
+  //         Caption: body,
+  //         Images: [{Url: image, Width: 600, Height: 400}],
+  //       };
+  //       const updatedPosts = existingPosts.map((post: any) =>
+  //         post.id === postToEdit.id ? editedPost : post,
+  //       );
+  //       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+  //       onEditSuccess();
+  //     } else {
+  //       const newPost = {
+  //         Title: title,
+  //         Images: [{Url: image, Width: 600, Height: 400}],
+  //         Username: 'Niharika',
+  //         Date: new Date().toLocaleDateString(),
+  //         Caption: body,
+  //         createdAt: Date.now(),
+  //         id: generateUniqueId(),
+  //       };
+
+  //       const existingPostsStr = await AsyncStorage.getItem('posts');
+
+  //       const existingPosts = existingPostsStr
+  //         ? JSON.parse(existingPostsStr)
+  //         : [];
+
+  //       const updatedPosts = [newPost, ...existingPosts];
+
+  //       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+  //     }
+  //     navigation.goBack();
+
+  //     setTitle('');
+  //     setBody('');
+  //     setImage('');
+  //   } catch (error) {
+  //     console.error('Error adding post:', error);
+  //   }
+  // };
 
   const handleSubmit = async () => {
     try {
@@ -69,25 +148,7 @@ const Addpostscreen = ({route}: any) => {
         return;
       }
 
-      const existingPostsStr = await AsyncStorage.getItem('posts');
-
-      const existingPosts = existingPostsStr
-        ? JSON.parse(existingPostsStr)
-        : [];
-
-      if (postToEdit) {
-        const editedPost = {
-          ...postToEdit,
-          Title: title,
-          Caption: body,
-          Images: [{Url: image, Width: 600, Height: 400}],
-        };
-        const updatedPosts = existingPosts.map((post: any) =>
-          post.id === postToEdit.id ? editedPost : post,
-        );
-        await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
-        onEditSuccess();
-      } else {
+      if (title && image && body) {
         const newPost = {
           Title: title,
           Images: [{Url: image, Width: 600, Height: 400}],
@@ -95,42 +156,67 @@ const Addpostscreen = ({route}: any) => {
           Date: new Date().toLocaleDateString(),
           Caption: body,
           createdAt: Date.now(),
-          id: generateUniqueId(),
+          id: postId || generateUniqueId(),
         };
-        function generateUniqueId() {
-          return (
-            Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
-          );
-        }
 
         const existingPostsStr = await AsyncStorage.getItem('posts');
-
         const existingPosts = existingPostsStr
           ? JSON.parse(existingPostsStr)
           : [];
 
-        const updatedPosts = [newPost, ...existingPosts];
+        if (postId) {
+          const index = existingPosts.findIndex(post => post.id === postId);
+          if (index !== -1) {
+            const updatedPosts = [
+              ...existingPosts.slice(0, index),
+              ...existingPosts.slice(index + 1),
+            ];
+            const editedPost = {
+              ...newPost,
+              createdAt: existingPosts[index].createdAt,
+            };
+            updatedPosts.splice(index, 0, editedPost);
+            await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+          }
+          navigation.navigate('Profile');
+        } else {
+          const updatedPosts = [newPost, ...existingPosts];
+          await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+          navigation.goBack();
+        }
 
-        await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+        setPostId('');
+        setTitle('');
+        setBody('');
+        setImage('');
       }
-      navigation.goBack();
-
-      setTitle('');
-      setBody('');
-      setImage('');
     } catch (error) {
-      console.error('Error adding post:', error);
+      console.error('Error adding/editing post:', error);
     }
   };
 
+  // useEffect(() => {
+  //   if (postToEdit) {
+  //     // Populate fields with existing post details for editing
+  //     setTitle(postToEdit.Title || '');
+  //     setBody(postToEdit.Caption || '');
+  //     setImage(postToEdit.Images[0]?.Url || null);
+  //   } else {
+  //     // Clear fields for adding a new post
+  //     setTitle('');
+  //     setBody('');
+  //     setImage(null);
+  //   }
+  // }, [postToEdit]);
   useEffect(() => {
-    if (postToEdit) {
-      // Populate fields with existing post details for editing
-      setTitle(postToEdit.Title || '');
-      setBody(postToEdit.Caption || '');
-      setImage(postToEdit.Images[0]?.Url || null);
+    if (route.params && route.params.isEditing) {
+      const {post} = route.params;
+      setPostId(post?.id || '');
+      setTitle(post?.Title || '');
+      setBody(post?.Caption || '');
+      setImage(post?.Images?.[0]?.Url || '');
     }
-  }, [postToEdit]);
+  }, [route.params]);
 
   return (
     <View style={styles.container}>

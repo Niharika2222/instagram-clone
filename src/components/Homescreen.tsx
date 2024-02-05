@@ -25,7 +25,7 @@ import {
   sendIcon,
 } from '../../utils/svgConstant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {TouchableOpacity, Animated} from 'react-native';
 import BottomSheetComponent from './Bottomsheet';
 import Stories from './Stories';
@@ -36,6 +36,8 @@ function Homescreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [selectUser, setSelectUser] = useState();
+  const navigation = useNavigation();
   const handleScroll = () => {
     if (!loadingMore && visiblePost < blogs.length) {
       setLoadingMore(true);
@@ -94,10 +96,10 @@ function Homescreen() {
             <Box style={styles.storyContainer}>
               <Image
                 source={{
-                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
+                  uri: 'https://media.istockphoto.com/id/1289220545/photo/beautiful-woman-smiling-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=qmOTkGstKj1qN0zPVWj-n28oRA6_BHQN8uVLIXg0TF8=',
                 }}
-                width={69}
-                height={69}
+                width={70}
+                height={70}
                 left={10}
                 alt="UserImage"
                 rounded={'$full'}
@@ -127,6 +129,25 @@ function Homescreen() {
       </Box>
     </>
   );
+
+  const handleDelete = async (postId: number) => {
+    try {
+      const storedPosts = await AsyncStorage.getItem('posts');
+      let updatedPosts: any[] = [];
+
+      if (storedPosts) {
+        const parsedPosts = JSON.parse(storedPosts);
+        updatedPosts = parsedPosts.filter((post: any) => post.id !== postId);
+        await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
+        setBlogs(updatedPosts);
+        navigation.goBack();
+      }
+    } catch (error) {
+      console.error('Error deleting post from storage:', error);
+    } finally {
+      setIsVisible(false);
+    }
+  };
 
   const retrievePostsFromStorage = async () => {
     try {
@@ -195,7 +216,11 @@ function Homescreen() {
                         </HStack>
 
                         <HStack bottom={10}>
-                          <TouchableOpacity onPress={() => setIsVisible(true)}>
+                          <TouchableOpacity
+                            onPress={() => {
+                              setIsVisible(true);
+                              setSelectUser(item);
+                            }}>
                             <Image
                               source={{
                                 uri: 'https://static.vecteezy.com/system/resources/previews/021/190/333/original/more-vertical-three-dots-settings-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg',
@@ -271,6 +296,8 @@ function Homescreen() {
           <BottomSheetComponent
             setIsVisible={setIsVisible}
             isVisible={isVisible}
+            post={selectUser}
+            handleDelete={() => handleDelete(selectUser?.id)}
           />
         </View>
       </>
@@ -310,10 +337,10 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     fontSize: 11,
-    marginTop: 1.5,
+    marginTop: 2,
     marginLeft: 17,
   },
   storyContainer: {
-    marginTop: 15,
+    marginTop: 14,
   },
 });

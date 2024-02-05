@@ -48,7 +48,7 @@ const MyProfile = () => {
           <Image
             alt="profile"
             source={{
-              uri: 'https://img.lovepik.com/free-png/20210923/lovepik-cute-girl-avatar-png-image_401231841_wh1200.png',
+              uri: 'https://media.istockphoto.com/id/1289220545/photo/beautiful-woman-smiling-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=qmOTkGstKj1qN0zPVWj-n28oRA6_BHQN8uVLIXg0TF8=',
             }}
             style={styles.profileImage}
           />

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {BottomSheet, Button, ListItem} from '@rneui/themed';
 import {StyleSheet, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 
 type BottomSheetComponentProps = {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +10,7 @@ type BottomSheetComponentProps = {
   fromProfileDetailScreen?: boolean;
   handleDelete?: () => void;
   handleEdit?: () => void;
+  post?: any;
 };
 
 const BottomSheetComponent: React.FunctionComponent<
@@ -18,8 +20,9 @@ const BottomSheetComponent: React.FunctionComponent<
   isVisible,
   fromProfileDetailScreen,
   handleDelete,
-  handleEdit,
+  post,
 }) => {
+  const navigation = useNavigation();
   const list = [
     {title: 'Add to favorites'},
     {title: 'About this account'},
@@ -30,7 +33,13 @@ const BottomSheetComponent: React.FunctionComponent<
     },
   ];
   const ProfileList = [
-    {title: 'Edit', onPress: handleEdit},
+    {
+      title: 'Edit',
+      onPress: () => {
+        setIsVisible(false);
+        navigation.navigate('AddPost', {post, isEditing: true});
+      },
+    },
     {
       title: 'Delete',
 
@@ -40,7 +49,7 @@ const BottomSheetComponent: React.FunctionComponent<
   ];
   return (
     <>
-      {fromProfileDetailScreen ? (
+      {fromProfileDetailScreen || post.Username === 'Niharika' ? (
         <SafeAreaProvider>
           <BottomSheet
             modalProps={{}}
