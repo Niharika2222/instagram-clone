@@ -29,7 +29,6 @@ const Addpostscreen = () => {
       const res: any = await DocumentPicker.pick({
         presentationStyle: 'fullScreen',
       });
-      console.log(res);
       if (res?.[0]?.uri) {
         setImage(res[0].uri);
       }
@@ -66,8 +65,6 @@ const Addpostscreen = () => {
         : [];
 
       const updatedPosts = [newPost, ...existingPosts];
-
-      console.log({existing: existingPosts});
 
       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
 
@@ -142,15 +139,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderColor: 'gray',
-    // borderRadius: 10,
     marginBottom: 15,
     color: 'black',
   },
   bodyInput: {
     borderWidth: 1,
-    // padding: 10,
     borderColor: 'gray',
-    // borderRadius: 10,
     marginBottom: 15,
     height: 120,
     color: 'black',

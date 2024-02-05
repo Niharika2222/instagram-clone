@@ -129,8 +129,7 @@ const MyProfile = () => {
       if (storedPosts) {
         const parsedPosts = JSON.parse(storedPosts);
         updatedPosts = [
-          ...parsedPosts,
-          ...feeds.filter(post => post.Username === 'Niharika'),
+          ...parsedPosts.filter((post: any) => post.Username === 'Niharika'),
         ];
         updatedPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       } else {

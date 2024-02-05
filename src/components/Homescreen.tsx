@@ -8,6 +8,7 @@ import {
   Divider,
   Icon,
   SearchIcon,
+  AddIcon,
 } from '@gluestack-ui/themed';
 import feeds from '../../utils/feed.json';
 import storyData from '../../utils/storyData.json';
@@ -87,35 +88,65 @@ function Homescreen() {
           </HStack>
         </HStack>
       </View>
-      <Stories />
+      <Box bottom={10}>
+        <ScrollView horizontal>
+          <HStack gap={8} alignItems="center">
+            <Box style={styles.storyContainer}>
+              <Image
+                source={{
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScaAsiURlbNIvNkNi5UCRzXStgONEKRH6emg&usqp=CAU',
+                }}
+                width={69}
+                height={69}
+                left={10}
+                alt="UserImage"
+                rounded={'$full'}
+              />
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 16,
+                  right: -15,
+                  borderRadius: 50,
+                  width: 26,
+                  height: 26,
+                  backgroundColor: '#0096FF',
+                  borderWidth: 2,
+                  borderColor: 'white',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <AddIcon size="sm" color="white" />
+              </View>
+              <Text style={styles.story}>Your story</Text>
+            </Box>
+
+            <Stories />
+          </HStack>
+        </ScrollView>
+      </Box>
     </>
   );
 
   const retrievePostsFromStorage = async () => {
-    console.log(blogs);
-    console.log('checking blogss....');
     try {
       const storedPosts = await AsyncStorage.getItem('posts');
-      console.log(storedPosts, 'abcd');
       let updatedBlogs: any[] = [];
 
       if (storedPosts) {
         const parsedPosts = JSON.parse(storedPosts);
-        // Update the global blogs variable or state with the retrieved posts
-        updatedBlogs = [...parsedPosts, ...feeds];
+        updatedBlogs = [...parsedPosts];
         updatedBlogs.sort((a, b) => {
           return (b.createdAt || 0) - (a.createdAt || 0);
         });
       } else {
-        // If there are no stored posts, update the state with external feeds only
         updatedBlogs = [...feeds];
+        await AsyncStorage.setItem('posts', JSON.stringify(feeds));
         updatedBlogs.sort((a, b) => {
           return (b.createdAt || 0) - (a.createdAt || 0);
         });
       }
       setBlogs(updatedBlogs);
-      console.log({updatedBlogs});
-      console.log(blogs.length, 'feed');
     } catch (error) {
       console.error('Error retrieving posts from storage:', error);
     }
@@ -123,6 +154,7 @@ function Homescreen() {
   useEffect(() => {
     retrievePostsFromStorage();
   }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       retrievePostsFromStorage();
@@ -141,7 +173,7 @@ function Homescreen() {
             renderItem={({item, index}) => {
               return (
                 <Box>
-                  <Box py={5} position="relative">
+                  <Box pb={5} position="relative">
                     <View key={index}>
                       <HStack
                         alignItems="center"
@@ -199,7 +231,7 @@ function Homescreen() {
                     </View>
 
                     <HStack
-                      px={7}
+                      px={9}
                       paddingTop={5}
                       marginTop={10}
                       gap={14}
@@ -213,13 +245,13 @@ function Homescreen() {
                         <SvgXml xml={saveIcon} width={24} height={24} />
                       </HStack>
                     </HStack>
-                    <Box px={7} marginBottom={3} marginTop={4}>
+                    <Box px={10} marginBottom={3} marginTop={4}>
                       <Text>
                         <Text style={styles.Username}>{item.Username}</Text>
                         <Text style={styles.Content}> {item.Caption}</Text>
                       </Text>
                     </Box>
-                    <HStack marginBottom={20}>
+                    <HStack marginBottom={20} px={5}>
                       <Text style={styles.Date}>{item.Date}</Text>
                     </HStack>
                   </Box>
@@ -273,5 +305,15 @@ const styles = StyleSheet.create({
   name: {
     marginTop: 7,
     textAlign: 'center',
+  },
+  story: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 11,
+    marginTop: 1.5,
+    marginLeft: 17,
+  },
+  storyContainer: {
+    marginTop: 15,
   },
 });

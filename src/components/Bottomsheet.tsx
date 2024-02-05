@@ -6,12 +6,13 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 type BottomSheetComponentProps = {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isVisible: boolean;
+  fromProfileDetailScreen?: boolean;
+  handleDelete?: () => void;
 };
 
 const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
-> = ({setIsVisible, isVisible}) => {
-  //   const [isVisible, setIsVisible] = useState(false);
+> = ({setIsVisible, isVisible, fromProfileDetailScreen, handleDelete}) => {
   const list = [
     {title: 'Add to favorites'},
     {title: 'About this account'},
@@ -22,23 +23,70 @@ const BottomSheetComponent: React.FunctionComponent<
       onPress: () => setIsVisible(false),
     },
   ];
+  const ProfileList = [
+    {title: 'Edit'},
+    {
+      title: 'Delete',
 
+      titleStyle: {color: 'red'},
+      onPress: handleDelete,
+    },
+  ];
   return (
-    <SafeAreaProvider>
-      <BottomSheet
-        modalProps={{}}
-        isVisible={isVisible}
-        onBackdropPress={() => setIsVisible(false)}
-        containerStyle={{backgroundColor: 'transparent'}}>
-        {list.map((l, i) => (
-          <ListItem key={i} onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-    </SafeAreaProvider>
+    <>
+      {fromProfileDetailScreen ? (
+        <SafeAreaProvider>
+          <BottomSheet
+            modalProps={{}}
+            isVisible={isVisible}
+            onBackdropPress={() => setIsVisible(false)}
+            containerStyle={{backgroundColor: 'transparent'}}>
+            {ProfileList.map((l, i) => (
+              <ListItem key={i} onPress={l.onPress}>
+                <ListItem.Content>
+                  <ListItem.Title style={l.titleStyle}>
+                    {l.title}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </BottomSheet>
+        </SafeAreaProvider>
+      ) : (
+        <SafeAreaProvider>
+          <BottomSheet
+            modalProps={{}}
+            isVisible={isVisible}
+            onBackdropPress={() => setIsVisible(false)}
+            containerStyle={{backgroundColor: 'transparent'}}>
+            {list.map((l, i) => (
+              <ListItem key={i} onPress={l.onPress}>
+                <ListItem.Content>
+                  <ListItem.Title style={l.titleStyle}>
+                    {l.title}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </BottomSheet>
+        </SafeAreaProvider>
+      )}
+      {/* <SafeAreaProvider>
+        <BottomSheet
+          modalProps={{}}
+          isVisible={isVisible}
+          onBackdropPress={() => setIsVisible(false)}
+          containerStyle={{backgroundColor: 'transparent'}}>
+          {list.map((l, i) => (
+            <ListItem key={i} onPress={l.onPress}>
+              <ListItem.Content>
+                <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+              </ListItem.Content>
+            </ListItem>
+          ))}
+        </BottomSheet>
+      </SafeAreaProvider> */}
+    </>
   );
 };
 
