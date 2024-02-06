@@ -57,76 +57,6 @@ const Addpostscreen = () => {
     );
   }
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     if (!title.trim()) {
-  //       setTitleError('Title cannot be empty');
-  //     } else {
-  //       setTitleError('');
-  //     }
-  //     if (!body.trim()) {
-  //       setBodyError('Body cannot be empty');
-  //     } else {
-  //       setBodyError('');
-  //     }
-  //     if (!image) {
-  //       setImageError('Please choose an image');
-  //     } else {
-  //       setImageError('');
-  //     }
-  //     if (!title.trim() || !body.trim() || !image) {
-  //       return;
-  //     }
-
-  //     const existingPostsStr = await AsyncStorage.getItem('posts');
-
-  //     const existingPosts = existingPostsStr
-  //       ? JSON.parse(existingPostsStr)
-  //       : [];
-
-  //     if (postToEdit) {
-  //       const editedPost = {
-  //         ...postToEdit,
-  //         Title: title,
-  //         Caption: body,
-  //         Images: [{Url: image, Width: 600, Height: 400}],
-  //       };
-  //       const updatedPosts = existingPosts.map((post: any) =>
-  //         post.id === postToEdit.id ? editedPost : post,
-  //       );
-  //       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
-  //       onEditSuccess();
-  //     } else {
-  //       const newPost = {
-  //         Title: title,
-  //         Images: [{Url: image, Width: 600, Height: 400}],
-  //         Username: 'Niharika',
-  //         Date: new Date().toLocaleDateString(),
-  //         Caption: body,
-  //         createdAt: Date.now(),
-  //         id: generateUniqueId(),
-  //       };
-
-  //       const existingPostsStr = await AsyncStorage.getItem('posts');
-
-  //       const existingPosts = existingPostsStr
-  //         ? JSON.parse(existingPostsStr)
-  //         : [];
-
-  //       const updatedPosts = [newPost, ...existingPosts];
-
-  //       await AsyncStorage.setItem('posts', JSON.stringify(updatedPosts));
-  //     }
-  //     navigation.goBack();
-
-  //     setTitle('');
-  //     setBody('');
-  //     setImage('');
-  //   } catch (error) {
-  //     console.error('Error adding post:', error);
-  //   }
-  // };
-
   const handleSubmit = async () => {
     try {
       if (!title.trim()) {
@@ -197,19 +127,6 @@ const Addpostscreen = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (postToEdit) {
-  //     // Populate fields with existing post details for editing
-  //     setTitle(postToEdit.Title || '');
-  //     setBody(postToEdit.Caption || '');
-  //     setImage(postToEdit.Images[0]?.Url || null);
-  //   } else {
-  //     // Clear fields for adding a new post
-  //     setTitle('');
-  //     setBody('');
-  //     setImage(null);
-  //   }
-  // }, [postToEdit]);
   useEffect(() => {
     if (route.params && route.params.isEditing) {
       const {post}: any = route.params;

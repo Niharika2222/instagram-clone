@@ -8,6 +8,8 @@ import Addpostscreen from '../src/components/Addpostscreen';
 import {Box, FavouriteIcon, Icon} from '@gluestack-ui/themed';
 import {Image} from '@gluestack-ui/themed';
 import Profilescreen from '../src/components/Profilescreen';
+import {useTheme} from '@react-navigation/native';
+
 const Tab = createBottomTabNavigator();
 function Tabs() {
   return (

@@ -88,21 +88,6 @@ const BottomSheetComponent: React.FunctionComponent<
           </BottomSheet>
         </SafeAreaProvider>
       )}
-      {/* <SafeAreaProvider>
-        <BottomSheet
-          modalProps={{}}
-          isVisible={isVisible}
-          onBackdropPress={() => setIsVisible(false)}
-          containerStyle={{backgroundColor: 'transparent'}}>
-          {list.map((l, i) => (
-            <ListItem key={i} onPress={l.onPress}>
-              <ListItem.Content>
-                <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </BottomSheet>
-      </SafeAreaProvider> */}
     </>
   );
 };

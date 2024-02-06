@@ -25,18 +25,6 @@ const Profiledetail = ({route}: any) => {
   const {index} = route.params;
   const navigation = useNavigation();
 
-  //   const handleEdit = (postId: number) => {
-  //     console.log('abcd');
-  //     const postToEdit = profile.find(post => post.id === postId);
-  //     console.log({postToEdit});
-  //     if (postToEdit) {
-  //       navigation.navigate('AddPost', {
-  //         postToEdit,
-  //         onEditSuccess: retrieveProfileFromStorage,
-  //       });
-  //     }
-  //   };
-
   const handleDelete = async (postId: number) => {
     try {
       const storedPosts = await AsyncStorage.getItem('posts');

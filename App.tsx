@@ -10,13 +10,17 @@ import {GluestackUIProvider} from '@gluestack-ui/themed';
 import {config} from '@gluestack-ui/config';
 // import Login from './src/components/login';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 // import Homescreen from './src/components/home';
 import Loginscreen from './src/components/Loginscreen';
 import Homescreen from './src/components/Homescreen';
 import Tabs from './tabsNavigation/Tabs';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Profiledetail from './src/components/Profiledetail';
+import {useColorScheme} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
