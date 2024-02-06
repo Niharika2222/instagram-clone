@@ -38,7 +38,6 @@ const MyProfile = () => {
                 source={{
                   uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlHSrDaI7JNLOOtJMkk5jiO1EuGNRIHAWPNjG7GeF7efAQChEt56ef1LE2-7o3PqPkY60&usqp=CAU',
                 }}
-                mt={3}
               />
             </Box>
             <Icon as={MenuIcon} w="$8" h="$8" />
@@ -73,12 +72,12 @@ const MyProfile = () => {
             </View>
           </View>
         </View>
-        <VStack mt={8}>
-          <Text bold={true} color="#000">
+        <VStack mt={4} ml={6}>
+          <Text bold={true} color="#000" fontSize={14}>
             Niharika
           </Text>
-          <Text color="#000" fontSize={'$sm'}>
-            This is my bio!
+          <Text color="#000" fontSize={14} bottom={2}>
+            Heyy!!
           </Text>
         </VStack>
         <View style={styles.profileActions}>
@@ -94,8 +93,22 @@ const MyProfile = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.icons}>
-          <Icon as={MenuIcon} w="$8" h="$8" />
-          <Icon as={MenuIcon} w="$8" h="$8" />
+          <Image
+            alt="grid"
+            width={25}
+            height={25}
+            source={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4JNEM_yxky2Dqvv4k5T6fqPFPpgJRT5cxfQ&s',
+            }}
+          />
+          <Image
+            alt="profile"
+            width={22}
+            height={22}
+            source={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbDBnb9pG4P0eZFdle_-MVH8lDNjqAegC1gg&s',
+            }}
+          />
         </View>
       </View>
     );
@@ -169,17 +182,17 @@ export default MyProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
     backgroundColor: '#fff',
   },
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 17,
   },
   profileImage: {
-    width: 85,
-    height: 85,
+    width: 76,
+    height: 76,
     borderRadius: 75,
     marginRight: 50,
   },
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileActions: {
-    marginTop: 14,
+    marginTop: 8,
     flexDirection: 'row',
   },
   editProfileBtn: {
@@ -210,7 +223,7 @@ const styles = StyleSheet.create({
   },
   icons: {
     flexDirection: 'row',
-    marginTop: 24,
+    marginTop: 22,
     justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: -16,

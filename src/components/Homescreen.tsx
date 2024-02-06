@@ -37,7 +37,23 @@ function Homescreen() {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [selectUser, setSelectUser] = useState();
+  const [isLiked, setIsLiked] = useState(false);
+  const doubleTapRef = useRef(false);
+  const doubleTapTimerRef = useRef(null);
   const navigation = useNavigation();
+
+  const handleDoubleTap = () => {
+    if (doubleTapRef.current) {
+      clearTimeout(doubleTapTimerRef.current);
+      setIsLiked(!isLiked);
+      doubleTapRef.current = false;
+    } else {
+      doubleTapRef.current = true;
+      doubleTapTimerRef.current = setTimeout(() => {
+        doubleTapRef.current = false;
+      }, 300); // Adjust this delay as needed (in milliseconds)
+    }
+  };
   const handleScroll = () => {
     if (!loadingMore && visiblePost < blogs.length) {
       setLoadingMore(true);
@@ -234,25 +250,28 @@ function Homescreen() {
                           </TouchableOpacity>
                         </HStack>
                       </HStack>
-
-                      <SliderBox
-                        images={
-                          item.Images
-                            ? item.Images.map((image: any) => image.Url)
-                            : []
-                        }
-                        top={5}
-                        sliderBoxHeight={400}
-                        dotColor="#15ccf9"
-                        inactiveDotColor="grey"
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        dotStyle={{
-                          top: 36,
-                          height: 6,
-                          width: 6,
-                          marginHorizontal: -10,
-                        }}
-                      />
+                      <TouchableOpacity
+                        onPress={handleDoubleTap}
+                        activeOpacity={1}>
+                        <SliderBox
+                          images={
+                            item.Images
+                              ? item.Images.map((image: any) => image.Url)
+                              : []
+                          }
+                          top={5}
+                          sliderBoxHeight={400}
+                          dotColor="#15ccf9"
+                          inactiveDotColor="grey"
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          dotStyle={{
+                            top: 36,
+                            height: 6,
+                            width: 6,
+                            marginHorizontal: -10,
+                          }}
+                        />
+                      </TouchableOpacity>
                     </View>
 
                     <HStack
@@ -262,7 +281,14 @@ function Homescreen() {
                       gap={14}
                       justifyContent="space-between">
                       <HStack gap={14} justifyContent="center">
-                        <SvgXml xml={heartIcon} width={24} height={24} />
+                        <TouchableOpacity onPress={handleDoubleTap}>
+                          <SvgXml
+                            xml={heartIcon}
+                            width={24}
+                            height={24}
+                            fill={isLiked ? 'red' : 'black'}
+                          />
+                        </TouchableOpacity>
                         <SvgXml xml={commentIcon} width={24} height={24} />
                         <SvgXml xml={sendIcon} width={24} height={24} />
                       </HStack>
