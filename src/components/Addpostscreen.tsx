@@ -165,7 +165,9 @@ const Addpostscreen = () => {
           : [];
 
         if (postId) {
-          const index = existingPosts.findIndex(post => post.id === postId);
+          const index = existingPosts.findIndex(
+            (post: any) => post.id === postId,
+          );
           if (index !== -1) {
             const updatedPosts = [
               ...existingPosts.slice(0, index),
@@ -210,7 +212,7 @@ const Addpostscreen = () => {
   // }, [postToEdit]);
   useEffect(() => {
     if (route.params && route.params.isEditing) {
-      const {post} = route.params;
+      const {post}: any = route.params;
       setPostId(post?.id || '');
       setTitle(post?.Title || '');
       setBody(post?.Caption || '');

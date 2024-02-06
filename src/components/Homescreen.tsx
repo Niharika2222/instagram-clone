@@ -293,12 +293,14 @@ function Homescreen() {
               />
             }
           />
-          <BottomSheetComponent
-            setIsVisible={setIsVisible}
-            isVisible={isVisible}
-            post={selectUser}
-            handleDelete={() => handleDelete(selectUser?.id)}
-          />
+          {selectUser && (
+            <BottomSheetComponent
+              setIsVisible={setIsVisible}
+              isVisible={isVisible}
+              post={selectUser}
+              handleDelete={() => handleDelete(selectUser?.id)}
+            />
+          )}
         </View>
       </>
     </>

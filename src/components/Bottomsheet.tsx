@@ -33,6 +33,7 @@ const BottomSheetComponent: React.FunctionComponent<
     },
   ];
   const ProfileList = [
+    {title: 'Archive'},
     {
       title: 'Edit',
       onPress: () => {
@@ -40,6 +41,7 @@ const BottomSheetComponent: React.FunctionComponent<
         navigation.navigate('AddPost', {post, isEditing: true});
       },
     },
+    {title: 'Pin to your profile'},
     {
       title: 'Delete',
 
