@@ -20,6 +20,7 @@ import {
   commentIcon,
   heartIcon,
   messageIcon,
+  redHeartIcon,
   saveIcon,
   sendIcon,
 } from '../../../utils/svgConstant';
@@ -28,6 +29,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {TouchableOpacity, Animated} from 'react-native';
 import BottomSheetComponent from '../../components/Bottomsheet';
 import Stories from '../../components/Stories';
+
 import {
   GestureHandlerRootView,
   TapGestureHandler,
@@ -43,12 +45,22 @@ function Homescreen() {
 
   const navigation = useNavigation();
 
-  const [isLiked, setIsLiked] = useState(false);
+  //   const [isLiked, setIsLiked] = useState(false);
+  const [isLikedArray, setIsLikedArray] = useState<boolean[]>([]);
 
-  const handleDoubleTap = () => {
-    // Toggle the liked state on double tap
-    setIsLiked(!isLiked);
+  const handleDoubleTap = (index: number) => {
+    // Toggle the liked state of the specified index
+    setIsLikedArray(prevState => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
   };
+
+  useEffect(() => {
+    // Initialize the isLikedArray with false values for each blog post
+    setIsLikedArray(Array(blogs.length).fill(false));
+  }, [blogs]);
 
   const handleScroll = () => {
     if (!loadingMore && visiblePost < blogs.length) {
@@ -75,7 +87,7 @@ function Homescreen() {
             <Image
               size="xs"
               width={150}
-              marginLeft={-12}
+              marginLeft={-8}
               source={{
                 uri: 'https://i.pinimg.com/originals/84/d8/61/84d861bd7bb0b5a2b4199abec253256c.png',
               }}
@@ -94,7 +106,7 @@ function Homescreen() {
               alt="Arrow"
             />
           </HStack>
-          <HStack gap={18} top={2}>
+          <HStack gap={18} top={2} right={2}>
             <SvgXml xml={heartIcon} width={24} height={24} />
             <Box marginRight={10}>
               <SvgXml xml={messageIcon} width={24} height={24} />
@@ -247,7 +259,7 @@ function Homescreen() {
                         </HStack>
                       </HStack>
                       <TouchableOpacity
-                        onPress={handleDoubleTap}
+                        onPress={() => handleDoubleTap(index)}
                         activeOpacity={1}>
                         <SliderBox
                           images={
@@ -277,12 +289,12 @@ function Homescreen() {
                       gap={14}
                       justifyContent="space-between">
                       <HStack gap={14} justifyContent="center">
-                        <TouchableOpacity onPress={handleDoubleTap}>
+                        <TouchableOpacity
+                          onPress={() => handleDoubleTap(index)}>
                           <SvgXml
-                            xml={heartIcon}
+                            xml={isLikedArray[index] ? redHeartIcon : heartIcon}
                             width={24}
                             height={24}
-                            fill={isLiked ? 'red' : 'black'}
                           />
                         </TouchableOpacity>
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Box, HStack} from '@gluestack-ui/themed';
+import {Image, Box, HStack, Divider} from '@gluestack-ui/themed';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 // @ts-ignore
 import {SliderBox} from 'react-native-image-slider-box';
@@ -72,13 +72,26 @@ const Profiledetail = ({route}: any) => {
   }, []);
   return (
     <>
+      <HStack
+        px={6}
+        backgroundColor="white"
+        alignItems="center"
+        gap={10}
+        py={8}
+        pl={12}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={{color: 'black', fontSize: 28}}>{`<`}</Text>
+        </TouchableOpacity>
+        <Text style={{color: 'black', fontSize: 17}}>Posts</Text>
+      </HStack>
+      <Divider />
       <FlatList
         data={profile}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => {
           return (
             <Box key={index}>
-              <Box py={5} position="relative">
+              <Box paddingTop={14} position="relative">
                 <View key={index}>
                   <HStack alignItems="center" gap={40}>
                     <HStack alignItems="center">
@@ -147,7 +160,7 @@ const Profiledetail = ({route}: any) => {
                     <Text style={styles.Content}> {item.Caption}</Text>
                   </Text>
                 </Box>
-                <HStack marginBottom={20}>
+                <HStack>
                   <Text style={styles.Date}>{item.Date}</Text>
                 </HStack>
               </Box>

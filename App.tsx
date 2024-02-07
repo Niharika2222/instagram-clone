@@ -40,7 +40,11 @@ function App(): React.JSX.Element {
               component={Tabs}
               options={{headerShown: false}}
             />
-            <Stack.Screen name="Posts" component={Profiledetail} />
+            <Stack.Screen
+              name="Posts"
+              component={Profiledetail}
+              options={{headerShown: false}}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>

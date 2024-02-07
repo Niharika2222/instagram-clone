@@ -13,14 +13,20 @@ import {
 type BottomSheetComponentProps = {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isVisible: boolean;
-  fromProfileScreen?: boolean;
+  fromProfileDetailScreen?: boolean;
   handleDelete?: () => void;
   post?: any;
 };
 
 const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
-> = ({setIsVisible, isVisible, fromProfileScreen, handleDelete, post}) => {
+> = ({
+  setIsVisible,
+  isVisible,
+  fromProfileDetailScreen,
+  handleDelete,
+  post,
+}) => {
   const navigation = useNavigation();
   const HomeList = [
     {title: 'Add to favorites'},
@@ -53,16 +59,13 @@ const BottomSheetComponent: React.FunctionComponent<
   };
 
   const renderList =
-    fromProfileScreen || post?.Username === 'Niharika' ? profileList : HomeList;
+    fromProfileDetailScreen || post?.Username === 'Niharika'
+      ? profileList
+      : HomeList;
 
   return (
     <>
       {isVisible && (
-        // <Modal
-        //   transparent
-        //   animationType="slide"
-        //   visible={isVisible}
-        //   onRequestClose={() => setIsVisible(false)}>
         <TouchableWithoutFeedback onPress={handleBackdropPress}>
           <View style={[styles.backdrop, StyleSheet.absoluteFillObject]}>
             <View style={styles.bottomSheetContainer}>
@@ -79,7 +82,6 @@ const BottomSheetComponent: React.FunctionComponent<
             </View>
           </View>
         </TouchableWithoutFeedback>
-        // </Modal>
       )}
     </>
   );
