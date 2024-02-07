@@ -1,39 +1,40 @@
-import React, {useState} from 'react';
-import {BottomSheet, Button, ListItem} from '@rneui/themed';
-import {StyleSheet, View} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Animated,
+  TouchableWithoutFeedback,
+  Modal,
+} from 'react-native';
 
 type BottomSheetComponentProps = {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isVisible: boolean;
-  fromProfileDetailScreen?: boolean;
+  fromProfileScreen?: boolean;
   handleDelete?: () => void;
-  handleEdit?: () => void;
   post?: any;
 };
 
 const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
-> = ({
-  setIsVisible,
-  isVisible,
-  fromProfileDetailScreen,
-  handleDelete,
-  post,
-}) => {
+> = ({setIsVisible, isVisible, fromProfileScreen, handleDelete, post}) => {
   const navigation = useNavigation();
-  const list = [
+  const HomeList = [
     {title: 'Add to favorites'},
-    {title: 'About this account'},
+    {title: 'Not interested'},
     {
       title: 'Report',
-
       titleStyle: {color: 'red'},
+      onPress: () => setIsVisible(false),
     },
   ];
-  const ProfileList = [
+
+  const profileList = [
     {title: 'Archive'},
+    {title: 'Pin to your profile'},
     {
       title: 'Edit',
       onPress: () => {
@@ -41,87 +42,85 @@ const BottomSheetComponent: React.FunctionComponent<
         navigation.navigate('AddPost', {post, isEditing: true});
       },
     },
-    {title: 'Pin to your profile'},
     {
       title: 'Delete',
-
       titleStyle: {color: 'red'},
       onPress: handleDelete,
     },
   ];
+  const handleBackdropPress = () => {
+    setIsVisible(false);
+  };
+
+  const renderList =
+    fromProfileScreen || post?.Username === 'Niharika' ? profileList : HomeList;
+
   return (
     <>
-      {fromProfileDetailScreen || post.Username === 'Niharika' ? (
-        <SafeAreaProvider>
-          <BottomSheet
-            modalProps={{}}
-            isVisible={isVisible}
-            onBackdropPress={() => setIsVisible(false)}
-            containerStyle={{
-              backgroundColor: 'white',
-              marginTop: 500,
-              borderTopLeftRadius: 50,
-              borderTopRightRadius: 50,
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 4,
-              },
-              shadowOpacity: 0.3,
-              shadowRadius: 4.65,
-            }}>
-            {ProfileList.map((l, i) => (
-              <View
-                style={{
-                  backgroundColor: 'transparent',
-                  borderTopLeftRadius: 100,
-                  borderTopRightRadius: 100,
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 4,
-                  },
-                  shadowOpacity: 0.3,
-                  shadowRadius: 4.65,
-                }}>
-                <ListItem key={i} onPress={l.onPress}>
-                  <ListItem.Content>
-                    <ListItem.Title style={l.titleStyle}>
-                      {l.title}
-                    </ListItem.Title>
-                  </ListItem.Content>
-                </ListItem>
-              </View>
-            ))}
-          </BottomSheet>
-        </SafeAreaProvider>
-      ) : (
-        <SafeAreaProvider>
-          <BottomSheet
-            modalProps={{}}
-            isVisible={isVisible}
-            onBackdropPress={() => setIsVisible(false)}
-            containerStyle={{backgroundColor: 'transparent'}}>
-            {list.map((l, i) => (
-              <ListItem key={i} onPress={l.onPress}>
-                <ListItem.Content>
-                  <ListItem.Title style={l.titleStyle}>
-                    {l.title}
-                  </ListItem.Title>
-                </ListItem.Content>
-              </ListItem>
-            ))}
-          </BottomSheet>
-        </SafeAreaProvider>
+      {isVisible && (
+        // <Modal
+        //   transparent
+        //   animationType="slide"
+        //   visible={isVisible}
+        //   onRequestClose={() => setIsVisible(false)}>
+        <TouchableWithoutFeedback onPress={handleBackdropPress}>
+          <View style={[styles.backdrop, StyleSheet.absoluteFillObject]}>
+            <View style={styles.bottomSheetContainer}>
+              {renderList.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={item.onPress}
+                  style={styles.listItem}>
+                  <Text style={[styles.title, item.titleStyle]}>
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        // </Modal>
       )}
     </>
   );
 };
 
+export default BottomSheetComponent;
+
 const styles = StyleSheet.create({
-  button: {
-    margin: 10,
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  bottomSheetContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
+    zIndex: 10,
+  },
+  listItem: {
+    paddingVertical: 15,
+  },
+  title: {
+    fontSize: 17,
+    color: '#000',
+  },
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
-
-export default BottomSheetComponent;

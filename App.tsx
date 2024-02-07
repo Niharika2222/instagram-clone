@@ -35,7 +35,11 @@ function App(): React.JSX.Element {
               options={{headerShown: false}}
               component={Loginscreen}
             />
-            <Stack.Screen name="Home" component={Tabs} />
+            <Stack.Screen
+              name="Home"
+              component={Tabs}
+              options={{headerShown: false}}
+            />
             <Stack.Screen name="Posts" component={Profiledetail} />
           </Stack.Navigator>
         </NavigationContainer>

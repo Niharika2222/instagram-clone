@@ -43,6 +43,13 @@ function Homescreen() {
 
   const navigation = useNavigation();
 
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleDoubleTap = () => {
+    // Toggle the liked state on double tap
+    setIsLiked(!isLiked);
+  };
+
   const handleScroll = () => {
     if (!loadingMore && visiblePost < blogs.length) {
       setLoadingMore(true);
@@ -63,7 +70,7 @@ function Homescreen() {
   const renderHeader = () => (
     <>
       <View style={styles.container}>
-        <HStack justifyContent="space-between" marginTop={5}>
+        <HStack justifyContent="space-between" marginTop={18}>
           <HStack>
             <Image
               size="xs"
@@ -239,25 +246,28 @@ function Homescreen() {
                           </TouchableOpacity>
                         </HStack>
                       </HStack>
-
-                      <SliderBox
-                        images={
-                          item.Images
-                            ? item.Images.map((image: any) => image.Url)
-                            : []
-                        }
-                        top={5}
-                        sliderBoxHeight={400}
-                        dotColor="#15ccf9"
-                        inactiveDotColor="grey"
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        dotStyle={{
-                          top: 36,
-                          height: 6,
-                          width: 6,
-                          marginHorizontal: -10,
-                        }}
-                      />
+                      <TouchableOpacity
+                        onPress={handleDoubleTap}
+                        activeOpacity={1}>
+                        <SliderBox
+                          images={
+                            item.Images
+                              ? item.Images.map((image: any) => image.Url)
+                              : []
+                          }
+                          top={5}
+                          sliderBoxHeight={400}
+                          dotColor="#15ccf9"
+                          inactiveDotColor="grey"
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          dotStyle={{
+                            top: 36,
+                            height: 6,
+                            width: 6,
+                            marginHorizontal: -10,
+                          }}
+                        />
+                      </TouchableOpacity>
                     </View>
 
                     <HStack
@@ -267,7 +277,14 @@ function Homescreen() {
                       gap={14}
                       justifyContent="space-between">
                       <HStack gap={14} justifyContent="center">
-                        <SvgXml xml={heartIcon} width={24} height={24} />
+                        <TouchableOpacity onPress={handleDoubleTap}>
+                          <SvgXml
+                            xml={heartIcon}
+                            width={24}
+                            height={24}
+                            fill={isLiked ? 'red' : 'black'}
+                          />
+                        </TouchableOpacity>
 
                         <SvgXml xml={commentIcon} width={24} height={24} />
                         <SvgXml xml={sendIcon} width={24} height={24} />
