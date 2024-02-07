@@ -20,7 +20,6 @@ const Addpostscreen = () => {
   const [bodyError, setBodyError] = useState<string>('');
   const [imageError, setImageError] = useState<string>('');
   const [postId, setPostId] = useState('');
-  // const {postToEdit, onEditSuccess} = route?.params || {};
   const navigation = useNavigation();
   const route = useRoute();
 
