@@ -54,19 +54,19 @@ const MyProfile = () => {
           <View style={styles.profile}>
             <View style={styles.stat}>
               <Text bold={true} color="#000">
-                10
+                2
               </Text>
               <Text color="#000">Posts</Text>
             </View>
             <View style={styles.stat}>
               <Text bold={true} color="#000">
-                200
+                150
               </Text>
               <Text color="#000">Followers</Text>
             </View>
             <View style={styles.stat}>
               <Text bold={true} color="#000">
-                100
+                200
               </Text>
               <Text color="#000">Following</Text>
             </View>

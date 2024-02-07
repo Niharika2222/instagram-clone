@@ -57,15 +57,41 @@ const BottomSheetComponent: React.FunctionComponent<
             modalProps={{}}
             isVisible={isVisible}
             onBackdropPress={() => setIsVisible(false)}
-            containerStyle={{backgroundColor: 'transparent'}}>
+            containerStyle={{
+              backgroundColor: 'white',
+              marginTop: 500,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 4,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: 4.65,
+            }}>
             {ProfileList.map((l, i) => (
-              <ListItem key={i} onPress={l.onPress}>
-                <ListItem.Content>
-                  <ListItem.Title style={l.titleStyle}>
-                    {l.title}
-                  </ListItem.Title>
-                </ListItem.Content>
-              </ListItem>
+              <View
+                style={{
+                  backgroundColor: 'transparent',
+                  borderTopLeftRadius: 100,
+                  borderTopRightRadius: 100,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 4,
+                  },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4.65,
+                }}>
+                <ListItem key={i} onPress={l.onPress}>
+                  <ListItem.Content>
+                    <ListItem.Title style={l.titleStyle}>
+                      {l.title}
+                    </ListItem.Title>
+                  </ListItem.Content>
+                </ListItem>
+              </View>
             ))}
           </BottomSheet>
         </SafeAreaProvider>
