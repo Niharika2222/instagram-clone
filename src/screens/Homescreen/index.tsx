@@ -10,8 +10,7 @@ import {
   SearchIcon,
   AddIcon,
 } from '@gluestack-ui/themed';
-import feeds from '../../utils/feed.json';
-import storyData from '../../utils/storyData.json';
+import feeds from '../../../utils/feed.json';
 // @ts-ignore
 import {SliderBox} from 'react-native-image-slider-box';
 import {FlatList} from 'react-native';
@@ -23,12 +22,12 @@ import {
   messageIcon,
   saveIcon,
   sendIcon,
-} from '../../utils/svgConstant';
+} from '../../../utils/svgConstant';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {TouchableOpacity, Animated} from 'react-native';
-import BottomSheetComponent from './Bottomsheet';
-import Stories from './Stories';
+import BottomSheetComponent from '../../components/Bottomsheet';
+import Stories from '../../components/Stories';
 import {
   GestureHandlerRootView,
   TapGestureHandler,

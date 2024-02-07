@@ -16,11 +16,12 @@ import {
   DarkTheme,
 } from '@react-navigation/native';
 // import Homescreen from './src/components/home';
-import Loginscreen from './src/components/Loginscreen';
-import Homescreen from './src/components/Homescreen';
+// import Loginscreen from './src/components/Loginscreen';
 import Tabs from './tabsNavigation/Tabs';
-import Profiledetail from './src/components/Profiledetail';
+// import Profiledetail from './src/components/Profiledetail';
 import {useColorScheme} from 'react-native';
+import Profiledetail from './src/screens/Profiledetail';
+import Loginscreen from './src/screens/Loginscreen';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
@@ -35,7 +36,6 @@ function App(): React.JSX.Element {
               component={Loginscreen}
             />
             <Stack.Screen name="Home" component={Tabs} />
-            {/* <Stack.Screen name="Tabs" component={Tabs} /> */}
             <Stack.Screen name="Posts" component={Profiledetail} />
           </Stack.Navigator>
         </NavigationContainer>

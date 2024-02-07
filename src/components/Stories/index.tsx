@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import InstaStory from 'react-native-insta-story';
-import data from '../../utils/storyData.json';
+import data from '../../../utils/storyData.json';
 import {Button, View, Text, StyleSheet} from 'react-native';
 type StoryId = any;
 const Stories = () => {

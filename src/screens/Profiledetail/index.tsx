@@ -10,12 +10,12 @@ import {
   messageIcon,
   saveIcon,
   sendIcon,
-} from '../../utils/svgConstant';
-import profile from '../../utils/feed.json';
-import myPosts from '../../utils/profile.json';
+} from '../../../utils/svgConstant';
+import profile from '../../../utils/feed.json';
+import myPosts from '../../../utils/profile.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import feeds from '../../utils/feed.json';
-import BottomSheetComponent from './Bottomsheet';
+import feeds from '../../../utils/feed.json';
+import BottomSheetComponent from '../../components/Bottomsheet';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 const Profiledetail = ({route}: any) => {
@@ -56,7 +56,9 @@ const Profiledetail = ({route}: any) => {
         ];
         updatedPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       } else {
-        updatedPosts = [...feeds.filter(post => post.Username === 'Niharika')];
+        updatedPosts = [
+          ...feeds.filter((post: any) => post.Username === 'Niharika'),
+        ];
         updatedPosts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       }
 
@@ -75,7 +77,7 @@ const Profiledetail = ({route}: any) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => {
           return (
-            <Box>
+            <Box key={index}>
               <Box py={5} position="relative">
                 <View key={index}>
                   <HStack alignItems="center" gap={40}>

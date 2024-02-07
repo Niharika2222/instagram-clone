@@ -10,12 +10,12 @@ import {
 } from '@gluestack-ui/themed';
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import myPosts from '../../utils/profile.json';
+import myPosts from '../../../utils/profile.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import feeds from '../../utils/feed.json';
+import feeds from '../../../utils/feed.json';
 
-const MyProfile = () => {
+const Profilescreen = () => {
   const navigation = useNavigation();
   const [profile, setProfile] = useState<any[]>([]);
   const renderHeaderContent = () => {
@@ -177,7 +177,7 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default Profilescreen;
 
 const styles = StyleSheet.create({
   container: {

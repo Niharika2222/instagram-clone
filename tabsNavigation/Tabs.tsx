@@ -1,14 +1,18 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Homescreen from '../src/components/Homescreen';
+// import Homescreen from '../src/components/Homescreen';
 import {View} from 'react-native';
-import Searchscreen from '../src/components/Searchscreen';
-import Addpostscreen from '../src/components/Addpostscreen';
+// import Searchscreen from '../src/components/Searchscreen';
+// import Addpostscreen from '../src/components/Addpostscreen';
 
-import {Box, FavouriteIcon, Icon} from '@gluestack-ui/themed';
+import {Box} from '@gluestack-ui/themed';
 import {Image} from '@gluestack-ui/themed';
-import Profilescreen from '../src/components/Profilescreen';
+// import Profilescreen from '../src/components/Profilescreen';
 import {useTheme} from '@react-navigation/native';
+import Homescreen from '../src/screens/Homescreen';
+import Addpostscreen from '../src/screens/Addpostscreen';
+import Profilescreen from '../src/screens/Profilescreen';
+import Searchscreen from '../src/screens/Searchscreen';
 
 const Tab = createBottomTabNavigator();
 function Tabs() {
