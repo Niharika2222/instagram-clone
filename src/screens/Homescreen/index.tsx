@@ -1,15 +1,6 @@
-import React, {useState, useCallback, useEffect, useMemo, useRef} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
-import {
-  Image,
-  ScrollView,
-  Box,
-  HStack,
-  Divider,
-  Icon,
-  SearchIcon,
-  AddIcon,
-} from '@gluestack-ui/themed';
+import {Image, ScrollView, Box, HStack, AddIcon} from '@gluestack-ui/themed';
 import feeds from '../../../utils/feed.json';
 // @ts-ignore
 import {SliderBox} from 'react-native-image-slider-box';
@@ -30,11 +21,6 @@ import {TouchableOpacity, Animated} from 'react-native';
 import BottomSheetComponent from '../../components/Bottomsheet';
 import Stories from '../../components/Stories';
 
-import {
-  GestureHandlerRootView,
-  TapGestureHandler,
-} from 'react-native-gesture-handler';
-
 function Homescreen() {
   const [visiblePost, setVisiblePost] = useState(2);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -44,12 +30,9 @@ function Homescreen() {
   const [selectUser, setSelectUser] = useState();
 
   const navigation = useNavigation();
-
-  //   const [isLiked, setIsLiked] = useState(false);
   const [isLikedArray, setIsLikedArray] = useState<boolean[]>([]);
 
   const handleDoubleTap = (index: number) => {
-    // Toggle the liked state of the specified index
     setIsLikedArray(prevState => {
       const newState = [...prevState];
       newState[index] = !newState[index];
@@ -58,7 +41,6 @@ function Homescreen() {
   };
 
   useEffect(() => {
-    // Initialize the isLikedArray with false values for each blog post
     setIsLikedArray(Array(blogs.length).fill(false));
   }, [blogs]);
 

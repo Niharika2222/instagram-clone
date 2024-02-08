@@ -4,6 +4,7 @@ import {
   ButtonText,
   Input,
   InputField,
+  Text,
   VStack,
 } from '@gluestack-ui/themed';
 import {Image} from '@gluestack-ui/themed';
@@ -11,13 +12,24 @@ import {Alert} from 'react-native';
 
 export const Loginscreen = ({navigation}: any) => {
   const [inputValue, setInputValue] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const handleLogin = () => {
     if (inputValue.trim() === '') {
-      Alert.alert('Please fill in the username.');
+      setError('Please fill in the username.');
+      return;
+    }
+    if (inputValue.length < 4) {
+      setError('Username must be at least 4 characters long.');
+      return;
+    }
+
+    if (inputValue.includes(' ')) {
+      setError('Username cannot contain spaces.');
       return;
     }
     navigation.navigate('Home');
     setInputValue('');
+    setError(null);
   };
   return (
     <VStack
@@ -52,10 +64,28 @@ export const Loginscreen = ({navigation}: any) => {
           backgroundColor="#fafafa"
           value={inputValue}
           onChange={e => {
-            setInputValue(e.nativeEvent.text);
+            const text = e.nativeEvent.text;
+            if (!text.includes(' ')) {
+              setInputValue(text);
+              setError(null); // Reset error when user types in input
+            } else {
+              setError('Username cannot contain spaces.');
+            }
           }}
         />
       </Input>
+      {error && (
+        <Text
+          style={{
+            color: 'red',
+            fontSize: 12,
+            justifyContent: 'flex-start',
+            alignContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}>
+          {error}
+        </Text>
+      )}
       <Button
         size="md"
         width={'100%'}
